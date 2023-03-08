@@ -26,7 +26,7 @@ class _Home extends State<Home> with SingleTickerProviderStateMixin {
     ),
     Tab(
       icon: Icon(Icons.add_task),
-      text: 'Favorites',
+      text: 'Progress',
     ),
   ];
 

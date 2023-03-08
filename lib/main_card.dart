@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:what_to_do/activity_card.dart';
 import 'activity.dart';
 import 'fetch.dart';
 
@@ -49,42 +50,7 @@ class _MainCard extends State<StatefulWidget> {
                       },
                       child: const Text('Discover it!'),
                     ),
-                    showActivity
-                        ? Card(
-                            elevation: 10,
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    a.activity,
-                                    style: const TextStyle(fontSize: 24),
-                                  ),
-                                  Text(a.type),
-                                  Text('${a.participants}'),
-                                  a.price > 0
-                                      ? Text(
-                                          'Price: ${a.price}',
-                                          style: const TextStyle(fontSize: 24),
-                                        )
-                                      : const Text(
-                                          'Price: Free!',
-                                          style: TextStyle(fontSize: 24),
-                                        ),
-                                  Text(
-                                    'Accessibility: ${a.accessibility * 100}%',
-                                    style: const TextStyle(fontSize: 24),
-                                  ),
-                                  a.link.isNotEmpty
-                                      ? Text(a.link,
-                                          style: const TextStyle(fontSize: 24))
-                                      : const Text(''),
-                                ],
-                              ),
-                            ),
-                          )
-                        : const Text(''),
+                    showActivity ? ActivityCard.createCard(a) : const Center(),
                   ],
                 ),
               ),

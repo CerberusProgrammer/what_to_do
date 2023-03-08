@@ -1,23 +1,25 @@
+import 'package:flutter/material.dart';
+
 class Activity {
   String activity;
   String type;
   int participants;
-  int price;
+  double price;
   String link;
   String key;
   double accessibility;
 
-  static const List<String> typeActivity = [
-    "education",
-    "recreational",
-    "social",
-    "diy",
-    "charity",
-    "cooking",
-    "relaxation",
-    "music",
-    "busywork"
-  ];
+  static const Map<String, Color> typeColors = {
+    "education": Color(0xFF2196F3),
+    "recreational": Color(0xFF4CAF50),
+    "social": Color(0xFFFF5722),
+    "diy": Color(0xFF673AB7),
+    "charity": Color(0xFFE91E63),
+    "cooking": Color(0xFF795548),
+    "relaxation": Color(0xFF009688),
+    "music": Color(0xFFE91E63),
+    "busywork": Color(0xFF607D8B),
+  };
 
   Activity(
     this.activity,
@@ -40,14 +42,28 @@ class Activity {
   });
 
   factory Activity.fromJSON(dynamic json) {
+    double price;
+    double accessibility;
+    try {
+      price = (json['price'] as int).toDouble();
+    } catch (e) {
+      price = json['price'] as double;
+    }
+
+    try {
+      accessibility = (json['accessibility'] as int).toDouble();
+    } catch (e) {
+      accessibility = json['accessibility'] as double;
+    }
+
     return Activity(
       json['activity'] as String,
       json['type'] as String,
       json['participants'] as int,
-      json['price'] as int,
+      price,
       json['link'] as String,
       json['key'] as String,
-      json['accessibility'] as double,
+      accessibility,
     );
   }
 
