@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:what_to_do/activity.dart';
-import 'package:what_to_do/fetch.dart';
+import 'package:what_to_do/main_card.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -9,79 +8,55 @@ class Home extends StatefulWidget {
   State<StatefulWidget> createState() => _Home();
 }
 
-class _Home extends State<Home> {
-  Activity a = Activity.random();
+class _Home extends State<Home> with SingleTickerProviderStateMixin {
+  late TabController _controller;
 
-  bool showActivity = false;
+  static const List<Widget> _pages = [
+    MainCard(),
+  ];
 
-  void sync() async {
-    Activity activity = await Fetch.getActivity();
-    a = activity;
-  }
+  static const List<Widget> _tabs = [
+    Tab(
+      icon: Icon(Icons.home),
+      text: 'Home',
+    ),
+    Tab(
+      icon: Icon(Icons.search),
+      text: 'Search',
+    ),
+    Tab(
+      icon: Icon(Icons.add_task),
+      text: 'Favorites',
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    sync();
     return Scaffold(
-      body: LayoutBuilder(builder: (context, constraints) {
-        return Padding(
-          padding: const EdgeInsets.all(10),
-          child: Card(
-            elevation: 10,
-            child: SizedBox(
-              width: constraints.maxWidth,
-              height: constraints.maxHeight,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'What to do Today?',
-                        style: TextStyle(fontSize: 56),
-                      ),
-                    ),
-                    FilledButton(
-                      onPressed: () {
-                        setState(() {
-                          showActivity = true;
-                        });
-                      },
-                      child: const Text('Discover it!'),
-                    ),
-                    showActivity
-                        ? Card(
-                            elevation: 10,
-                            child: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    a.activity,
-                                    style: const TextStyle(fontSize: 24),
-                                  ),
-                                  Text(
-                                    'Price: ${a.price}',
-                                    style: const TextStyle(fontSize: 24),
-                                  ),
-                                  Text(
-                                    'Accessibility: ${a.accessibility * 100}%',
-                                    style: const TextStyle(fontSize: 24),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          )
-                        : Text(''),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
-      }),
+      body: TabBarView(
+        controller: _controller,
+        children: _pages,
+      ),
+      bottomNavigationBar: Material(
+          child: TabBar(
+        tabs: _tabs,
+        controller: _controller,
+      )),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TabController(
+      length: _pages.length,
+      vsync: this,
     );
   }
 }

@@ -7,6 +7,18 @@ class Activity {
   String key;
   double accessibility;
 
+  static const List<String> typeActivity = [
+    "education",
+    "recreational",
+    "social",
+    "diy",
+    "charity",
+    "cooking",
+    "relaxation",
+    "music",
+    "busywork"
+  ];
+
   Activity(
     this.activity,
     this.type,
