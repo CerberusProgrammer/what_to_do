@@ -18,6 +18,12 @@ Here are some of the key features of "What to do?":
 
 To install "What to do?" on your device, simply clone the repository, open the project in your preferred code editor, install the dependencies, and run the app. The app runs smoothly on both iOS and Android devices.
 
+### Goals!
+- Finish the Home Page (This will have the splash screen and then it will scroll down to see the progress of the liked challenges).
+- Finish the Search it will have a filter for any attrbute of the Activity.
+- (Maybe) Finish the Progress Page, im not segure about this.
+- Finish the About Page (My information and settings, colors, etc.).
+
 ### Contribution
 
 "What to do?" is an open-source project, and contributions are always welcome. If you're interested in contributing to the project, please follow the guidelines in the CONTRIBUTING.md file.
