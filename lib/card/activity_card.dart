@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'activity.dart';
+import '../object/activity.dart';
 
 class ActivityCard {
   static Widget createCard(Activity activity) {

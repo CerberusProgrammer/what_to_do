@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:what_to_do/main_card.dart';
+import 'package:what_to_do/card/main_card.dart';
+import 'package:what_to_do/search.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -13,6 +14,7 @@ class _Home extends State<Home> with SingleTickerProviderStateMixin {
 
   static const List<Widget> _pages = [
     MainCard(),
+    Search(),
   ];
 
   static const List<Widget> _tabs = [

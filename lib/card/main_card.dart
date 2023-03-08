@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:what_to_do/activity_card.dart';
-import 'activity.dart';
-import 'fetch.dart';
+import 'package:what_to_do/card/activity_card.dart';
+import '../object/activity.dart';
+import '../object/fetch.dart';
 
 class MainCard extends StatefulWidget {
   const MainCard({super.key});
