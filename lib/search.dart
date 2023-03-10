@@ -11,17 +11,8 @@ class Search extends StatefulWidget {
 class _Search extends State<StatefulWidget> {
   List<Text> typeButtons = [];
 
-  List<bool> isPressed = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false
-  ];
-  bool disabled = false;
+  List<bool> isPressed = [true, true, true, true, true, true, true, true, true];
+  List<int> times = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
   void typeStrings() {
     for (String key in Activity.typeColors.keys) {
@@ -42,48 +33,56 @@ class _Search extends State<StatefulWidget> {
               padding: const EdgeInsets.all(10),
               child: Column(
                 children: [
-                  const Text('Filter by type'),
+                  const Text('Filter by Type'),
                   const Divider(),
                   SizedBox(
                     height: 40,
-                    child: ListView(
+                    child: ListView.builder(
                       physics: const ScrollPhysics(),
                       scrollDirection: Axis.horizontal,
                       shrinkWrap: true,
-                      children: [
-                        FilledButton(
-                          onPressed: isPressed[0] || disabled
-                              ? null
-                              : () {
-                                  if (disabled && isPressed[0]) {
-                                    setState(() {
-                                      disabled = false;
-                                      isPressed[0] = false;
-                                    });
+                      itemCount: isPressed.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        return FilledButton(
+                          onPressed: isPressed[index]
+                              ? () {
+                                  times[index] = times[index] + 1;
 
-                                    return;
+                                  if (times[index] == 1) {
+                                    for (int i = 0; i < isPressed.length; i++) {
+                                      if (i != index) {
+                                        setState(() {
+                                          isPressed[i] = false;
+                                        });
+                                      }
+                                    }
                                   }
-                                  setState(() {
-                                    isPressed[0] = true;
-                                    disabled = true;
-                                  });
-                                },
-                          child: typeButtons[0],
-                        ),
-                        FilledButton(
-                            onPressed: isPressed[1] || disabled ? null : () {},
-                            child: typeButtons[1]),
-                        FilledButton(onPressed: () {}, child: typeButtons[2]),
-                        FilledButton(onPressed: () {}, child: typeButtons[3]),
-                        FilledButton(onPressed: () {}, child: typeButtons[4]),
-                        FilledButton(onPressed: () {}, child: typeButtons[5]),
-                        FilledButton(onPressed: () {}, child: typeButtons[6]),
-                        FilledButton(onPressed: () {}, child: typeButtons[7]),
-                        FilledButton(onPressed: () {}, child: typeButtons[8]),
-                      ],
+
+                                  if (times[index] == 2) {
+                                    for (int i = 0; i < isPressed.length; i++) {
+                                      setState(() {
+                                        isPressed[i] = true;
+                                      });
+                                    }
+                                    times[index] = 0;
+                                  }
+                                }
+                              : null,
+                          child: typeButtons[index],
+                        );
+                      },
                     ),
                   ),
-                  const Divider()
+                  const Divider(),
+                  const Text('Filter by Participants'),
+                  const Divider(),
+                  const Divider(),
+                  const Text('Filter by Price'),
+                  const Divider(),
+                  const Divider(),
+                  const Text('Filter by Accessibility'),
+                  const Divider(),
+                  const Divider(),
                 ],
               ),
             ),
