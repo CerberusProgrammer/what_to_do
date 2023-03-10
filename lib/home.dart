@@ -35,6 +35,7 @@ class _Home extends State<Home> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(),
       body: TabBarView(
         controller: _controller,
         children: _pages,
