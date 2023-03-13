@@ -21,8 +21,12 @@ class _Search extends State<StatefulWidget> {
   }
 
   bool displayFilterType = false;
-  double sliderValue = 1;
-  String radioValue = 'Free';
+  bool displayFilterParticipants = false;
+  bool displayFilterPrice = false;
+  bool displayFilterAccessibility = false;
+  double sliderParticipants = 1;
+  double sliderAccessibility = 0;
+  String? radioValue = 'Free';
 
   @override
   Widget build(BuildContext context) {
@@ -95,67 +99,113 @@ class _Search extends State<StatefulWidget> {
                               },
                             ),
                           )
-                        : Center(),
+                        : const Center(),
                     const Divider(),
                     ListTile(
                       title:
                           const Center(child: Text('Filter by Participants')),
-                      onTap: () {},
-                    ),
-                    const Divider(),
-                    Slider(
-                      onChanged: (double value) {
+                      onTap: () {
                         setState(() {
-                          sliderValue = value;
+                          if (displayFilterParticipants) {
+                            displayFilterParticipants = false;
+                          } else {
+                            displayFilterParticipants = true;
+                          }
                         });
                       },
-                      onChangeEnd: (value) {},
-                      value: sliderValue,
-                      max: 5,
-                      min: 1,
-                      divisions: 5,
-                      label: '${sliderValue.round()}',
                     ),
+                    const Divider(),
+                    displayFilterParticipants
+                        ? Slider(
+                            onChanged: (double value) {
+                              setState(() {
+                                sliderParticipants = value;
+                              });
+                            },
+                            onChangeEnd: (value) {},
+                            value: sliderParticipants,
+                            max: 5,
+                            min: 1,
+                            divisions: 5,
+                            label: '${sliderParticipants.round()}',
+                          )
+                        : const Center(),
                     const Divider(),
                     ListTile(
                       title: const Center(child: Text('Filter by Price')),
-                      onTap: () {},
+                      onTap: () {
+                        setState(() {
+                          if (displayFilterPrice) {
+                            displayFilterPrice = false;
+                          } else {
+                            displayFilterPrice = true;
+                          }
+                        });
+                      },
                     ),
                     const Divider(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const Text('Free'),
-                        Radio<String>(
-                            value: 'Free',
-                            groupValue: radioValue,
-                            onChanged: (String? value) {}),
-                        const Text('Paid'),
-                        Radio<String>(
-                            value: 'Free',
-                            groupValue: radioValue,
-                            onChanged: (String? value) {}),
-                      ],
-                    ),
+                    displayFilterPrice
+                        ? Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text('Free'),
+                              Radio<String>(
+                                  value: 'Free',
+                                  groupValue: radioValue,
+                                  onChanged: (String? value) {
+                                    setState(() {
+                                      radioValue = value;
+                                    });
+                                  }),
+                              const Text('Paid'),
+                              Radio<String>(
+                                  value: 'Paid',
+                                  groupValue: radioValue,
+                                  onChanged: (String? value) {
+                                    setState(() {
+                                      radioValue = value;
+                                    });
+                                  }),
+                            ],
+                          )
+                        : const Center(),
                     const Divider(),
                     ListTile(
                       title:
                           const Center(child: Text('Filter by Accessibility')),
-                      onTap: () {},
+                      onTap: () {
+                        setState(() {
+                          if (displayFilterAccessibility) {
+                            displayFilterAccessibility = false;
+                          } else {
+                            displayFilterAccessibility = true;
+                          }
+                        });
+                      },
                     ),
                     const Divider(),
+                    displayFilterAccessibility
+                        ? Slider(
+                            onChanged: (double value) {
+                              setState(() {
+                                sliderAccessibility = value;
+                              });
+                            },
+                            onChangeEnd: (value) {},
+                            value: sliderAccessibility,
+                            max: 100,
+                            min: 0,
+                            divisions: 10,
+                            label: '${sliderAccessibility.round()}',
+                          )
+                        : const Center(),
                     const Divider(),
-                    FilledButton(onPressed: () {}, child: Text('Search')),
                   ],
                 ),
               ),
             ),
           );
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.search),
       ),
     );
   }
