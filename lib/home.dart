@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:what_to_do/card/main_card.dart';
-import 'package:what_to_do/search.dart';
+import 'package:what_to_do/search/search.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});

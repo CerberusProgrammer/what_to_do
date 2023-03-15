@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:what_to_do/object/activity.dart';
 
+import '../object/fetch.dart';
+
 class Search extends StatefulWidget {
   const Search({super.key});
 
@@ -31,6 +33,9 @@ class _Search extends State<StatefulWidget> {
   @override
   Widget build(BuildContext context) {
     typeStrings();
+    setState(() {
+      print(Fetch.searchByType('recreational'));
+    });
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -51,6 +56,9 @@ class _Search extends State<StatefulWidget> {
                             displayFilterType = false;
                           } else {
                             displayFilterType = true;
+                            displayFilterPrice = false;
+                            displayFilterAccessibility = false;
+                            displayFilterParticipants = false;
                           }
                         });
                       },
@@ -100,7 +108,7 @@ class _Search extends State<StatefulWidget> {
                             ),
                           )
                         : const Center(),
-                    const Divider(),
+                    displayFilterType ? const Divider() : const Center(),
                     ListTile(
                       title:
                           const Center(child: Text('Filter by Participants')),
@@ -110,11 +118,16 @@ class _Search extends State<StatefulWidget> {
                             displayFilterParticipants = false;
                           } else {
                             displayFilterParticipants = true;
+                            displayFilterAccessibility = false;
+                            displayFilterType = false;
+                            displayFilterPrice = false;
                           }
                         });
                       },
                     ),
-                    const Divider(),
+                    displayFilterParticipants
+                        ? const Divider()
+                        : const Center(),
                     displayFilterParticipants
                         ? Slider(
                             onChanged: (double value) {
@@ -139,6 +152,9 @@ class _Search extends State<StatefulWidget> {
                             displayFilterPrice = false;
                           } else {
                             displayFilterPrice = true;
+                            displayFilterAccessibility = false;
+                            displayFilterParticipants = false;
+                            displayFilterType = false;
                           }
                         });
                       },
@@ -169,7 +185,7 @@ class _Search extends State<StatefulWidget> {
                             ],
                           )
                         : const Center(),
-                    const Divider(),
+                    displayFilterPrice ? const Divider() : const Center(),
                     ListTile(
                       title:
                           const Center(child: Text('Filter by Accessibility')),
@@ -179,6 +195,9 @@ class _Search extends State<StatefulWidget> {
                             displayFilterAccessibility = false;
                           } else {
                             displayFilterAccessibility = true;
+                            displayFilterParticipants = false;
+                            displayFilterPrice = false;
+                            displayFilterType = false;
                           }
                         });
                       },
@@ -199,7 +218,9 @@ class _Search extends State<StatefulWidget> {
                             label: '${sliderAccessibility.round()}',
                           )
                         : const Center(),
-                    const Divider(),
+                    displayFilterAccessibility
+                        ? const Divider()
+                        : const Center(),
                   ],
                 ),
               ),
