@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:what_to_do/card/activity_card.dart';
 import 'package:what_to_do/object/activity.dart';
 
 import '../object/fetch.dart';
@@ -26,16 +27,38 @@ class _Search extends State<StatefulWidget> {
   bool displayFilterParticipants = false;
   bool displayFilterPrice = false;
   bool displayFilterAccessibility = false;
+  bool displayCard = false;
+  bool enableSearch = false;
   double sliderParticipants = 1;
   double sliderAccessibility = 0;
-  String? radioValue = 'Free';
+  String? radioValue = '';
+
+  Activity activity = Activity.random();
+  Activity wait = Activity.random();
+
+  void syncType(String filter) async {
+    Activity a = await Fetch.searchByType(filter);
+    activity = a;
+  }
+
+  void syncParticipants(int participants) async {
+    Activity a = await Fetch.searchByParticipants(participants);
+    activity = a;
+  }
+
+  void syncPrice(bool paid) async {
+    Activity a = await Fetch.searchByPrice(paid);
+    activity = a;
+  }
+
+  void syncAccessibility(double accessibility) async {
+    Activity a = await Fetch.searchByAccessibility(accessibility);
+    activity = a;
+  }
 
   @override
   Widget build(BuildContext context) {
     typeStrings();
-    setState(() {
-      print(Fetch.searchByType('recreational'));
-    });
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -48,17 +71,22 @@ class _Search extends State<StatefulWidget> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    displayCard
+                        ? Expanded(child: ActivityCard.createCard(wait))
+                        : const Center(),
                     ListTile(
                       title: const Center(child: Text('Filter by Type')),
                       onTap: () {
                         setState(() {
                           if (displayFilterType) {
                             displayFilterType = false;
+                            enableSearch = false;
                           } else {
                             displayFilterType = true;
                             displayFilterPrice = false;
                             displayFilterAccessibility = false;
                             displayFilterParticipants = false;
+                            enableSearch = false;
                           }
                         });
                       },
@@ -85,6 +113,7 @@ class _Search extends State<StatefulWidget> {
                                               if (i != index) {
                                                 setState(() {
                                                   isPressed[i] = false;
+                                                  enableSearch = true;
                                                 });
                                               }
                                             }
@@ -96,10 +125,13 @@ class _Search extends State<StatefulWidget> {
                                                 i++) {
                                               setState(() {
                                                 isPressed[i] = true;
+                                                enableSearch = false;
                                               });
                                             }
                                             times[index] = 0;
                                           }
+                                          syncType(typeButtons[index].data
+                                              as String);
                                         }
                                       : null,
                                   child: typeButtons[index],
@@ -116,11 +148,13 @@ class _Search extends State<StatefulWidget> {
                         setState(() {
                           if (displayFilterParticipants) {
                             displayFilterParticipants = false;
+                            enableSearch = false;
                           } else {
                             displayFilterParticipants = true;
                             displayFilterAccessibility = false;
                             displayFilterType = false;
                             displayFilterPrice = false;
+                            enableSearch = false;
                           }
                         });
                       },
@@ -133,13 +167,19 @@ class _Search extends State<StatefulWidget> {
                             onChanged: (double value) {
                               setState(() {
                                 sliderParticipants = value;
+                                enableSearch = false;
                               });
                             },
-                            onChangeEnd: (value) {},
+                            onChangeEnd: (value) {
+                              syncParticipants(value.round());
+                              setState(() {
+                                enableSearch = true;
+                              });
+                            },
                             value: sliderParticipants,
                             max: 5,
                             min: 1,
-                            divisions: 5,
+                            divisions: 4,
                             label: '${sliderParticipants.round()}',
                           )
                         : const Center(),
@@ -150,11 +190,13 @@ class _Search extends State<StatefulWidget> {
                         setState(() {
                           if (displayFilterPrice) {
                             displayFilterPrice = false;
+                            enableSearch = false;
                           } else {
                             displayFilterPrice = true;
                             displayFilterAccessibility = false;
                             displayFilterParticipants = false;
                             displayFilterType = false;
+                            enableSearch = false;
                           }
                         });
                       },
@@ -169,8 +211,10 @@ class _Search extends State<StatefulWidget> {
                                   value: 'Free',
                                   groupValue: radioValue,
                                   onChanged: (String? value) {
+                                    syncPrice(false);
                                     setState(() {
                                       radioValue = value;
+                                      enableSearch = true;
                                     });
                                   }),
                               const Text('Paid'),
@@ -178,8 +222,10 @@ class _Search extends State<StatefulWidget> {
                                   value: 'Paid',
                                   groupValue: radioValue,
                                   onChanged: (String? value) {
+                                    syncPrice(true);
                                     setState(() {
                                       radioValue = value;
+                                      enableSearch = true;
                                     });
                                   }),
                             ],
@@ -193,11 +239,13 @@ class _Search extends State<StatefulWidget> {
                         setState(() {
                           if (displayFilterAccessibility) {
                             displayFilterAccessibility = false;
+                            enableSearch = false;
                           } else {
                             displayFilterAccessibility = true;
                             displayFilterParticipants = false;
                             displayFilterPrice = false;
                             displayFilterType = false;
+                            enableSearch = false;
                           }
                         });
                       },
@@ -208,9 +256,15 @@ class _Search extends State<StatefulWidget> {
                             onChanged: (double value) {
                               setState(() {
                                 sliderAccessibility = value;
+                                enableSearch = false;
                               });
                             },
-                            onChangeEnd: (value) {},
+                            onChangeEnd: (value) {
+                              syncAccessibility(value / 100);
+                              setState(() {
+                                enableSearch = true;
+                              });
+                            },
                             value: sliderAccessibility,
                             max: 100,
                             min: 0,
@@ -221,6 +275,20 @@ class _Search extends State<StatefulWidget> {
                     displayFilterAccessibility
                         ? const Divider()
                         : const Center(),
+                    SizedBox(
+                        width: constraints.maxWidth,
+                        height: 35,
+                        child: FilledButton(
+                          onPressed: enableSearch
+                              ? () {
+                                  wait = activity;
+                                  setState(() {
+                                    displayCard = true;
+                                  });
+                                }
+                              : null,
+                          child: const Text('Search'),
+                        ))
                   ],
                 ),
               ),
