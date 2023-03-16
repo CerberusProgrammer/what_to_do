@@ -45,16 +45,10 @@ class ActivityCard {
                 ],
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Spacer(),
-                FilledButton(
-                    onPressed: () {},
-                    child: const Text('Take this challenge!')),
-                const Spacer(),
-              ],
-            ),
+            Center(
+              child: FilledButton(
+                  onPressed: () {}, child: const Text('Take this challenge!')),
+            )
           ],
         ),
       ),

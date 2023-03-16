@@ -7,8 +7,15 @@ void main() {
     scrollBehavior: MyCustomScrollBehavior(),
     debugShowCheckedModeBanner: false,
     title: 'What to do?',
-    theme: ThemeData.dark(
+    theme: ThemeData(
+      colorSchemeSeed: Colors.amber,
       useMaterial3: true,
+      brightness: Brightness.light,
+    ),
+    darkTheme: ThemeData(
+      colorSchemeSeed: Colors.amber,
+      useMaterial3: true,
+      brightness: Brightness.dark,
     ),
     home: const Home(),
   ));
