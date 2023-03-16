@@ -22,7 +22,7 @@ To install "What to do?" on your device, simply clone the repository, open the p
 - Finish the Activity Card. Display all the information of the Activity, a correct color, close button, accept button, and share option.
 - Finish the Share Option of the Activity Card, the intention is share the Card as history of Instagram, Facebook or Twitter, and can save the card as image to feel free to post it wherever the user want.
 - Finish the Home Page (This will have the splash screen and then it will scroll down to see the progress of the liked challenges).
-- Finish the Search it will have a filter for any attrbute of the Activity.
+- ~~Finish the Search it will have a filter for any attrbute of the Activity.~~
 - (Maybe) Finish the Progress Page, im not segure about this.
 - Finish the About Page (My information and settings, colors, etc.).
 
