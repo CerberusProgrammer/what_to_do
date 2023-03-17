@@ -77,14 +77,17 @@ class ActivityCard {
                               context: context,
                               builder: (BuildContext context) {
                                 return AlertDialog(
-                                  title: Text('Título del diálogo'),
-                                  content: Text('Contenido del diálogo'),
+                                  title: Text(
+                                      'Possible Participants: ${activity.participants}'),
+                                  // ignore: prefer_const_constructors
+                                  content: Text(
+                                      'This is only a suggestion for the quantity of participants in this activity.'),
                                   actions: [
                                     TextButton(
                                       onPressed: () {
                                         Navigator.of(context).pop();
                                       },
-                                      child: Text('Cerrar'),
+                                      child: const Text('Close'),
                                     ),
                                   ],
                                 );
@@ -132,20 +135,35 @@ class ActivityCard {
                                 )
                               : const Text('Free'),
                         ),
-                        activity.accessibility * 100 < 33
-                            ? FilledButton(
-                                onPressed: () {},
-                                child: const Text('Easy'),
-                              )
-                            : activity.accessibility * 100 < 66
-                                ? FilledButton(
-                                    onPressed: () {},
-                                    child: const Text('Intermediate'),
-                                  )
-                                : FilledButton(
-                                    onPressed: () {},
-                                    child: const Text('Hard'),
+                        FilledButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text(
+                                      'Accessibility Level: ${(activity.accessibility * 100).round()}'),
+                                  content: const Text(
+                                    'This represents the accesibility of the transportation or the difficulty of the activity. \n\nLower is more accessible and higher is more is more difficult to do.',
                                   ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                      child: const Text('Close'),
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          child: activity.accessibility * 100 < 33
+                              ? const Text('Easy')
+                              : activity.accessibility * 100 < 66
+                                  ? const Text('Intermediate')
+                                  : const Text('Hard'),
+                        ),
                       ],
                     ),
                     activity.link.isNotEmpty
