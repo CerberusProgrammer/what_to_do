@@ -110,7 +110,7 @@ class ActivityCard {
                               builder: (BuildContext context) {
                                 return AlertDialog(
                                   content: const Text(
-                                    'This is only a suggested cost of the activity. The numbers are in dollars.',
+                                    'This is an estimate of the cost of the activity. The amounts are in US dollars',
                                   ),
                                   actions: [
                                     TextButton(
