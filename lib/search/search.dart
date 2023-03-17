@@ -72,7 +72,8 @@ class _Search extends State<StatefulWidget> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     displayCard
-                        ? Expanded(child: ActivityCard.createCard(wait))
+                        ? Expanded(
+                            child: ActivityCard.createCard(wait, context))
                         : const Center(),
                     ListTile(
                       title: const Center(child: Text('Filter by Type')),

@@ -21,6 +21,30 @@ class Activity {
     "busywork": Color(0xFF607D8B),
   };
 
+  static const Map<String, IconData> typeIcons = {
+    "education": Icons.school,
+    "recreational": Icons.beach_access,
+    "social": Icons.chat_bubble_outline,
+    "diy": Icons.build,
+    "charity": Icons.favorite,
+    "cooking": Icons.restaurant,
+    "relaxation": Icons.spa,
+    "music": Icons.music_note,
+    "busywork": Icons.work,
+  };
+
+  static const Map<String, String> typeDescriptions = {
+    "education": "Activities related to learning or gaining knowledge.",
+    "recreational": "Activities done for fun or leisure.",
+    "social": "Activities that involve socializing or interacting with others.",
+    "diy": "Do-it-yourself activities or projects.",
+    "charity": "Activities related to helping others or charitable causes.",
+    "cooking": "Activities related to cooking or preparing food.",
+    "relaxation": "Activities that promote relaxation or stress-relief.",
+    "music": "Activities related to listening to or playing music.",
+    "busywork": "Activities that are generally considered to be time-wasters."
+  };
+
   Activity(
     this.activity,
     this.type,

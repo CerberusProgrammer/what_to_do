@@ -50,7 +50,9 @@ class _MainCard extends State<StatefulWidget> {
                       },
                       child: const Text('Discover it!'),
                     ),
-                    showActivity ? ActivityCard.createCard(a) : const Center(),
+                    showActivity
+                        ? ActivityCard.createCard(a, context)
+                        : const Center(),
                   ],
                 ),
               ),
