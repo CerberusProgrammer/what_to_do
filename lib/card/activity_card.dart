@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:what_to_do/progress/tasks.dart';
 
 import '../object/activity.dart';
+import '../object/task.dart';
 
 class ActivityCard {
   static Widget createCard(Activity activity, BuildContext context) {
@@ -79,8 +81,7 @@ class ActivityCard {
                                 return AlertDialog(
                                   title: Text(
                                       'Possible Participants: ${activity.participants}'),
-                                  // ignore: prefer_const_constructors
-                                  content: Text(
+                                  content: const Text(
                                       'This is only a suggestion for the quantity of participants in this activity.'),
                                   actions: [
                                     TextButton(
@@ -166,17 +167,16 @@ class ActivityCard {
                         ),
                       ],
                     ),
-                    activity.link.isNotEmpty
-                        ? Text(
-                            activity.link,
-                          )
-                        : const Center(),
                   ],
                 ),
               ),
               Center(
                 child: FilledButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      tasks.add(Task(
+                        activity: activity,
+                      ));
+                    },
                     child: const Text(
                       'Take this challenge!',
                       style: TextStyle(fontSize: 16),
