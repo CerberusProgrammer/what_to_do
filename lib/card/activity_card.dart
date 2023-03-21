@@ -206,7 +206,8 @@ class ActivityCard {
                             activity: activity,
                           ));
 
-                          await Future.delayed(const Duration(seconds: 1));
+                          await Future.delayed(const Duration(seconds: 3));
+                          controller.reset();
                         },
                         child: const Text('Take challenge'),
                       )
