@@ -154,7 +154,7 @@ class ActivityCard {
                                   title: Text(
                                       'Accessibility Level: ${(activity.accessibility * 100).round()}'),
                                   content: const Text(
-                                    'This represents the accesibility of the transportation or the difficulty of the activity. \n\nLower is more accessible and higher is more is more difficult to do.',
+                                    'This represents the accesibility of the transportation or the difficulty of the activity. \n\nLower is more accessible and higher is more difficult to do.',
                                   ),
                                   actions: [
                                     TextButton(
