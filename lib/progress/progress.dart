@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:what_to_do/card/activity_card.dart';
 import 'package:what_to_do/progress/tasks.dart';
 
 import '../object/activity.dart';
@@ -44,7 +45,30 @@ class _Progress extends State<StatefulWidget> {
                               ),
                             ),
                             child: ListTile(
-                                onTap: () {},
+                                trailing: Icon(Activity
+                                    .typeIcons[tasks[index].activity.type]),
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        elevation: 0,
+                                        content: SizedBox(
+                                          height: constraints.maxHeight / 3,
+                                          child: ActivityCard.createCard(
+                                              tasks[index].activity,
+                                              context,
+                                              false),
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                                onLongPress: () {
+                                  setState(() {
+                                    tasks.remove(tasks[index]);
+                                  });
+                                },
                                 title: Text(tasks[index].activity.activity)),
                           ),
                         );

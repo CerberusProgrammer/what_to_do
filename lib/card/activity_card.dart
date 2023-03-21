@@ -1,11 +1,56 @@
+import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:what_to_do/progress/tasks.dart';
 
 import '../object/activity.dart';
 import '../object/task.dart';
 
-class ActivityCard {
-  static Widget createCard(Activity activity, BuildContext context) {
+import 'package:url_launcher/url_launcher.dart';
+
+class ActivityCard extends StatefulWidget {
+  final Activity activity;
+  final bool challenge;
+
+  const ActivityCard(
+    this.activity,
+    this.challenge, {
+    required Key key,
+  }) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _ActivityCardState();
+}
+
+class _ActivityCardState extends State<ActivityCard> {
+  // Define cualquier variable de estado necesaria aquí
+
+  @override
+  Widget build(BuildContext context) {
+    // Utilice las variables de estado aquí para construir la interfaz de usuario
+    return Container(
+        // ...
+        );
+  }
+
+  void _performAdditionalLogic() {
+    // Realice la lógica adicional aquí
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _performAdditionalLogic();
+  }
+}
+
+class _ActivityCard extends State<StatefulWidget> {
+  Activity activity;
+  bool challenge;
+
+  _ActivityCard(this.activity, this.challenge);
+
+  @override
+  Widget build(BuildContext context) {
     return Card(
       elevation: 20,
       //color: Activity.typeColors[activity.type],
@@ -165,22 +210,59 @@ class ActivityCard {
                                   ? const Text('Intermediate')
                                   : const Text('Hard'),
                         ),
+                        activity.link.isNotEmpty
+                            ? FilledButton(
+                                onPressed: () async {
+                                  var url = activity.link;
+                                  final uri = Uri.parse(url);
+                                  if (await canLaunchUrl(uri)) {
+                                    await launchUrl(uri);
+                                  }
+                                },
+                                child: const Icon(Icons.language))
+                            : const Center(),
                       ],
                     ),
                   ],
                 ),
               ),
               Center(
-                child: FilledButton(
-                    onPressed: () {
-                      tasks.add(Task(
-                        activity: activity,
-                      ));
+                child: challenge
+                    ? FilledButton(
+                        onPressed: () {
+                          tasks.add(Task(
+                            activity: activity,
+                          ));
+                        },
+                        child: const Text(
+                          'Take this challenge!',
+                          style: TextStyle(fontSize: 16),
+                        ))
+                    : const Center(),
+              ),
+              Center(
+                child: SizedBox(
+                  width: 300,
+                  child: ActionSlider.standard(
+                    rolling: false,
+                    width: 300.0,
+                    backgroundColor: const Color.fromARGB(255, 116, 88, 4),
+                    reverseSlideAnimationCurve: Curves.easeInOut,
+                    reverseSlideAnimationDuration:
+                        const Duration(milliseconds: 500),
+                    toggleColor: Colors.amber,
+                    icon: const Icon(Icons.add),
+                    action: (controller) async {
+                      controller.loading(); //starts loading animation
+                      await Future.delayed(const Duration(seconds: 3));
+                      controller.success(); //starts success animation
+                      await Future.delayed(const Duration(seconds: 1));
+                      controller.reset(); //resets the slider
                     },
-                    child: const Text(
-                      'Take this challenge!',
-                      style: TextStyle(fontSize: 16),
-                    )),
+                    child: const Text('Take this challenge',
+                        style: TextStyle(color: Colors.white)),
+                  ),
+                ),
               ),
             ],
           ),

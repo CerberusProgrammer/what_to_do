@@ -73,7 +73,11 @@ class _Search extends State<StatefulWidget> {
                   children: [
                     displayCard
                         ? Expanded(
-                            child: ActivityCard.createCard(wait, context))
+                            child: ActivityCard.createCard(
+                            wait,
+                            context,
+                            true,
+                          ))
                         : const Center(),
                     ListTile(
                       title: const Center(child: Text('Filter by Type')),
