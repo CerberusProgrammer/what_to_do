@@ -7,50 +7,14 @@ import '../object/task.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
-class ActivityCard extends StatefulWidget {
-  final Activity activity;
-  final bool challenge;
-
-  const ActivityCard(
-    this.activity,
-    this.challenge, {
-    required Key key,
-  }) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => _ActivityCardState();
-}
-
-class _ActivityCardState extends State<ActivityCard> {
-  // Define cualquier variable de estado necesaria aquí
-
-  @override
-  Widget build(BuildContext context) {
-    // Utilice las variables de estado aquí para construir la interfaz de usuario
-    return Container(
-        // ...
-        );
-  }
-
-  void _performAdditionalLogic() {
-    // Realice la lógica adicional aquí
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _performAdditionalLogic();
-  }
-}
-
-class _ActivityCard extends State<StatefulWidget> {
+class ActivityCard {
   Activity activity;
   bool challenge;
 
-  _ActivityCard(this.activity, this.challenge);
+  ActivityCard(this.activity, this.challenge);
 
-  @override
-  Widget build(BuildContext context) {
+  static Widget createCard(
+      Activity activity, BuildContext context, bool challenge) {
     return Card(
       elevation: 20,
       //color: Activity.typeColors[activity.type],
