@@ -37,7 +37,7 @@ class _Progress extends State<StatefulWidget> {
                               borderRadius: BorderRadius.circular(10),
                               gradient: LinearGradient(
                                 colors: [
-                                  const Color.fromARGB(116, 255, 193, 7),
+                                  Theme.of(context).colorScheme.primary,
                                   Activity.typeColors[
                                           tasks[index].activity.type] ??
                                       Colors.amber,

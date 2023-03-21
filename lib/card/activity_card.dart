@@ -23,7 +23,7 @@ class ActivityCard {
           borderRadius: BorderRadius.circular(10),
           gradient: LinearGradient(
             colors: [
-              const Color.fromARGB(116, 255, 193, 7),
+              Theme.of(context).colorScheme.primary,
               Activity.typeColors[activity.type] ?? Colors.amber,
             ],
             tileMode: TileMode.repeated,
@@ -192,41 +192,25 @@ class ActivityCard {
               ),
               Center(
                 child: challenge
-                    ? FilledButton(
-                        onPressed: () {
+                    ? ActionSlider.standard(
+                        sliderBehavior: SliderBehavior.stretch,
+                        width: 250.0,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.primary.withAlpha(40),
+                        toggleColor: Theme.of(context).colorScheme.primary,
+                        action: (controller) async {
+                          controller.loading();
+                          await Future.delayed(const Duration(seconds: 1));
+                          controller.success();
                           tasks.add(Task(
                             activity: activity,
                           ));
+
+                          await Future.delayed(const Duration(seconds: 1));
                         },
-                        child: const Text(
-                          'Take this challenge!',
-                          style: TextStyle(fontSize: 16),
-                        ))
+                        child: const Text('Take challenge'),
+                      )
                     : const Center(),
-              ),
-              Center(
-                child: SizedBox(
-                  width: 300,
-                  child: ActionSlider.standard(
-                    rolling: false,
-                    width: 300.0,
-                    backgroundColor: const Color.fromARGB(255, 116, 88, 4),
-                    reverseSlideAnimationCurve: Curves.easeInOut,
-                    reverseSlideAnimationDuration:
-                        const Duration(milliseconds: 500),
-                    toggleColor: Colors.amber,
-                    icon: const Icon(Icons.add),
-                    action: (controller) async {
-                      controller.loading(); //starts loading animation
-                      await Future.delayed(const Duration(seconds: 3));
-                      controller.success(); //starts success animation
-                      await Future.delayed(const Duration(seconds: 1));
-                      controller.reset(); //resets the slider
-                    },
-                    child: const Text('Take this challenge',
-                        style: TextStyle(color: Colors.white)),
-                  ),
-                ),
               ),
             ],
           ),

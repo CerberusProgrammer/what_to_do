@@ -11,9 +11,9 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> with SingleTickerProviderStateMixin {
-  late TabController _controller;
+  late TabController controller;
 
-  static const List<Widget> _pages = [
+  static const List<Widget> pages = [
     MainCard(),
     Search(),
     Progress(),
@@ -38,28 +38,28 @@ class _Home extends State<Home> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       body: TabBarView(
-        controller: _controller,
-        children: _pages,
+        controller: controller,
+        children: pages,
       ),
       bottomNavigationBar: Material(
           child: TabBar(
         tabs: _tabs,
-        controller: _controller,
+        controller: controller,
       )),
     );
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    controller.dispose();
     super.dispose();
   }
 
   @override
   void initState() {
     super.initState();
-    _controller = TabController(
-      length: _pages.length,
+    controller = TabController(
+      length: pages.length,
       vsync: this,
     );
   }

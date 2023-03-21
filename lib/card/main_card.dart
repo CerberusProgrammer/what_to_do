@@ -51,7 +51,10 @@ class _MainCard extends State<StatefulWidget> {
                       child: const Text('Discover it!'),
                     ),
                     showActivity
-                        ? ActivityCard.createCard(a, context, true)
+                        ? Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ActivityCard.createCard(a, context, true),
+                          )
                         : const Center(),
                   ],
                 ),
