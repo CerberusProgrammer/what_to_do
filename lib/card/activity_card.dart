@@ -55,8 +55,9 @@ class ActivityCard {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                    Wrap(
+                      alignment: WrapAlignment.center,
+                      //mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         FilledButton(
                             onPressed: () {
@@ -105,7 +106,7 @@ class ActivityCard {
                             );
                           },
                           child: activity.participants > 1
-                              ? Row(
+                              ? Wrap(
                                   children: [
                                     const Icon(Icons.people_alt),
                                     Text(' ${activity.participants}')
@@ -135,7 +136,8 @@ class ActivityCard {
                             );
                           },
                           child: activity.price > 0
-                              ? Row(
+                              ? Wrap(
+                                  alignment: WrapAlignment.center,
                                   children: [
                                     const Icon(Icons.attach_money),
                                     Text(
