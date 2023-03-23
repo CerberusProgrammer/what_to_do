@@ -17,7 +17,7 @@ class Activity {
     "charity": Color(0xFFE91E63),
     "cooking": Color(0xFF795548),
     "relaxation": Color(0xFF009688),
-    "music": Color(0xFFE91E63),
+    "music": Color(0xFFBA68C8),
     "busywork": Color(0xFF607D8B),
   };
 

@@ -77,6 +77,7 @@ class _Search extends State<StatefulWidget> {
                             wait,
                             context,
                             true,
+                            1,
                           ))
                         : const Center(),
                     ListTile(
@@ -106,40 +107,43 @@ class _Search extends State<StatefulWidget> {
                               shrinkWrap: true,
                               itemCount: isPressed.length,
                               itemBuilder: (BuildContext context, int index) {
-                                return FilledButton(
-                                  onPressed: isPressed[index]
-                                      ? () {
-                                          times[index] = times[index] + 1;
+                                return Padding(
+                                  padding: const EdgeInsets.only(right: 2),
+                                  child: FilledButton(
+                                    onPressed: isPressed[index]
+                                        ? () {
+                                            times[index] = times[index] + 1;
 
-                                          if (times[index] == 1) {
-                                            for (int i = 0;
-                                                i < isPressed.length;
-                                                i++) {
-                                              if (i != index) {
-                                                setState(() {
-                                                  isPressed[i] = false;
-                                                  enableSearch = true;
-                                                });
+                                            if (times[index] == 1) {
+                                              for (int i = 0;
+                                                  i < isPressed.length;
+                                                  i++) {
+                                                if (i != index) {
+                                                  setState(() {
+                                                    isPressed[i] = false;
+                                                    enableSearch = true;
+                                                  });
+                                                }
                                               }
                                             }
-                                          }
 
-                                          if (times[index] == 2) {
-                                            for (int i = 0;
-                                                i < isPressed.length;
-                                                i++) {
-                                              setState(() {
-                                                isPressed[i] = true;
-                                                enableSearch = false;
-                                              });
+                                            if (times[index] == 2) {
+                                              for (int i = 0;
+                                                  i < isPressed.length;
+                                                  i++) {
+                                                setState(() {
+                                                  isPressed[i] = true;
+                                                  enableSearch = false;
+                                                });
+                                              }
+                                              times[index] = 0;
                                             }
-                                            times[index] = 0;
+                                            syncType(typeButtons[index].data
+                                                as String);
                                           }
-                                          syncType(typeButtons[index].data
-                                              as String);
-                                        }
-                                      : null,
-                                  child: typeButtons[index],
+                                        : null,
+                                    child: typeButtons[index],
+                                  ),
                                 );
                               },
                             ),

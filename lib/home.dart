@@ -7,17 +7,23 @@ class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
-  State<StatefulWidget> createState() => _Home();
+  State<StatefulWidget> createState() => HomeState();
 }
 
-class _Home extends State<Home> with SingleTickerProviderStateMixin {
-  late TabController controller;
+class HomeState extends State<Home> with SingleTickerProviderStateMixin {
+  static late TabController controller;
 
   static const List<Widget> pages = [
     MainCard(),
     Search(),
     Progress(),
   ];
+
+  static void nextPage(int tab) {
+    final int newTab = controller.index + tab;
+    if (newTab < 0 || newTab >= controller.length) return;
+    controller.animateTo(newTab);
+  }
 
   static const List<Widget> _tabs = [
     Tab(

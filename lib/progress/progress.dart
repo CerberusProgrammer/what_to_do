@@ -58,7 +58,8 @@ class _Progress extends State<StatefulWidget> {
                                           child: ActivityCard.createCard(
                                               tasks[index].activity,
                                               context,
-                                              false),
+                                              false,
+                                              0),
                                         ),
                                       );
                                     },

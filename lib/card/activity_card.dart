@@ -1,5 +1,6 @@
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:what_to_do/home.dart';
 import 'package:what_to_do/progress/tasks.dart';
 
 import '../object/activity.dart';
@@ -14,7 +15,7 @@ class ActivityCard {
   ActivityCard(this.activity, this.challenge);
 
   static Widget createCard(
-      Activity activity, BuildContext context, bool challenge) {
+      Activity activity, BuildContext context, bool challenge, int page) {
     return Card(
       elevation: 20,
       //color: Activity.typeColors[activity.type],
@@ -204,9 +205,12 @@ class ActivityCard {
                           controller.loading();
                           await Future.delayed(const Duration(seconds: 1));
                           controller.success();
+
                           tasks.add(Task(
                             activity: activity,
                           ));
+
+                          HomeState.nextPage(page);
 
                           await Future.delayed(const Duration(seconds: 3));
                           controller.reset();
