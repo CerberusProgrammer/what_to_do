@@ -60,7 +60,7 @@ class _MainCard extends State<StatefulWidget> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         showActivity
-                            ? Center()
+                            ? const Center()
                             : const Padding(
                                 padding: EdgeInsets.all(8.0),
                                 child: Text(
@@ -69,7 +69,7 @@ class _MainCard extends State<StatefulWidget> {
                                 ),
                               ),
                         showActivity
-                            ? Center()
+                            ? const Center()
                             : FilledButton(
                                 onPressed: () {
                                   setState(() {
@@ -93,7 +93,7 @@ class _MainCard extends State<StatefulWidget> {
                                   });
                                 },
                                 child: const Text('Another'))
-                            : Center(),
+                            : const Center(),
                       ],
                     ),
                   ),
