@@ -18,14 +18,15 @@ class ActivityCard {
       Activity activity, BuildContext context, bool challenge, int page) {
     return Card(
       elevation: 20,
-      //color: Activity.typeColors[activity.type],
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
           gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
             colors: [
-              Theme.of(context).colorScheme.primary,
               Activity.typeColors[activity.type] ?? Colors.amber,
+              Theme.of(context).colorScheme.onPrimary,
             ],
             tileMode: TileMode.repeated,
           ),

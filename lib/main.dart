@@ -8,12 +8,12 @@ void main() {
     debugShowCheckedModeBanner: false,
     title: 'What to do?',
     theme: ThemeData(
-      colorSchemeSeed: Colors.amber,
+      colorSchemeSeed: Colors.blueGrey,
       useMaterial3: true,
       brightness: Brightness.light,
     ),
     darkTheme: ThemeData(
-      colorSchemeSeed: Colors.purple,
+      colorSchemeSeed: Colors.blueGrey,
       useMaterial3: true,
       brightness: Brightness.dark,
     ),

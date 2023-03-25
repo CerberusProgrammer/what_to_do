@@ -3,6 +3,8 @@ import 'package:what_to_do/card/main_card.dart';
 import 'package:what_to_do/progress/progress.dart';
 import 'package:what_to_do/search/search.dart';
 
+import 'about/about.dart';
+
 class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -17,6 +19,7 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
     MainCard(),
     Search(),
     Progress(),
+    About(),
   ];
 
   static void nextPage(int tab) {
@@ -38,6 +41,10 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
       icon: Icon(Icons.add_task),
       text: 'Progress',
     ),
+    Tab(
+      icon: Icon(Icons.settings),
+      text: 'About',
+    )
   ];
 
   @override

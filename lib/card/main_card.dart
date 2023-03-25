@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:metaballs/metaballs.dart';
 import 'package:what_to_do/card/activity_card.dart';
 import '../object/activity.dart';
 import '../object/fetch.dart';
@@ -23,40 +24,79 @@ class _MainCard extends State<StatefulWidget> {
   Widget build(BuildContext context) {
     sync();
     return LayoutBuilder(
-      builder: (context, constraints) {
+      builder: (builder, constraints) {
         return Padding(
           padding: const EdgeInsets.all(10),
           child: Card(
-            elevation: 10,
-            child: SizedBox(
-              width: constraints.maxWidth,
-              height: constraints.maxHeight,
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Text(
-                        'What to do Today?',
-                        style: TextStyle(fontSize: 56),
-                      ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Metaballs(
+                color: const Color.fromARGB(255, 66, 133, 244),
+                effect: MetaballsEffect.follow(
+                  growthFactor: 1,
+                  smoothing: 1,
+                  radius: 0.5,
+                ),
+                gradient: const LinearGradient(colors: [
+                  Color.fromARGB(255, 90, 60, 255),
+                  Color.fromARGB(255, 120, 255, 255),
+                ], begin: Alignment.bottomRight, end: Alignment.topLeft),
+                metaballs: 15,
+                animationDuration: const Duration(milliseconds: 200),
+                speedMultiplier: 1,
+                bounceStiffness: 3,
+                minBallRadius: 15,
+                maxBallRadius: 40,
+                glowRadius: 0.7,
+                glowIntensity: 0.6,
+                child: Center(
+                  child: SizedBox(
+                    width: constraints.maxWidth > 600
+                        ? constraints.maxWidth / 2
+                        : 300,
+                    height: constraints.maxHeight,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        showActivity
+                            ? Center()
+                            : const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  'What to do Today?',
+                                  style: TextStyle(fontSize: 56),
+                                ),
+                              ),
+                        showActivity
+                            ? Center()
+                            : FilledButton(
+                                onPressed: () {
+                                  setState(() {
+                                    showActivity = true;
+                                  });
+                                },
+                                child: const Text('Discover it!'),
+                              ),
+                        showActivity
+                            ? Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: ActivityCard.createCard(
+                                    a, context, true, 2),
+                              )
+                            : const Center(),
+                        showActivity
+                            ? FilledButton(
+                                onPressed: () {
+                                  setState(() {
+                                    showActivity = true;
+                                  });
+                                },
+                                child: const Text('Another'))
+                            : Center(),
+                      ],
                     ),
-                    FilledButton(
-                      onPressed: () {
-                        setState(() {
-                          showActivity = true;
-                        });
-                      },
-                      child: const Text('Discover it!'),
-                    ),
-                    showActivity
-                        ? Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: ActivityCard.createCard(a, context, true, 2),
-                          )
-                        : const Center(),
-                  ],
+                  ),
                 ),
               ),
             ),
