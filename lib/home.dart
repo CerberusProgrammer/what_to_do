@@ -4,6 +4,7 @@ import 'package:what_to_do/progress/progress.dart';
 import 'package:what_to_do/search/search.dart';
 
 import 'about/about.dart';
+import 'object/user.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -15,11 +16,13 @@ class Home extends StatefulWidget {
 class HomeState extends State<Home> with SingleTickerProviderStateMixin {
   static late TabController controller;
 
-  static const List<Widget> pages = [
-    MainCard(),
-    Search(),
-    Progress(),
-    About(),
+  static List<Widget> pages = [
+    const MainCard(),
+    const Search(),
+    const Progress(),
+    About(
+      user: User(),
+    ),
   ];
 
   static void nextPage(int tab) {

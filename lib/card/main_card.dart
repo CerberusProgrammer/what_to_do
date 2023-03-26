@@ -32,14 +32,12 @@ class _MainCard extends State<StatefulWidget> {
               borderRadius: BorderRadius.circular(10),
               child: Metaballs(
                 color: const Color.fromARGB(255, 66, 133, 244),
-                effect: MetaballsEffect.follow(
+                effect: MetaballsEffect.ripple(
                   growthFactor: 1,
-                  smoothing: 1,
-                  radius: 0.5,
                 ),
-                gradient: const LinearGradient(colors: [
-                  Color.fromARGB(255, 90, 60, 255),
-                  Color.fromARGB(255, 120, 255, 255),
+                gradient: LinearGradient(colors: [
+                  const Color.fromARGB(255, 90, 60, 255),
+                  Theme.of(context).colorScheme.primary,
                 ], begin: Alignment.bottomRight, end: Alignment.topLeft),
                 metaballs: 15,
                 animationDuration: const Duration(milliseconds: 200),
