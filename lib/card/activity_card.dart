@@ -14,8 +14,13 @@ class ActivityCard {
 
   ActivityCard(this.activity, this.challenge);
 
-  static Widget createCard(
-      Activity activity, BuildContext context, bool challenge, int page) {
+  static Widget createCard({
+    required Activity activity,
+    required BuildContext context,
+    required bool challenge,
+    required int page,
+    int index = -1,
+  }) {
     return Card(
       elevation: 20,
       child: Container(
@@ -218,7 +223,24 @@ class ActivityCard {
                         },
                         child: const Text('Take challenge'),
                       )
-                    : const Center(),
+                    : ActionSlider.standard(
+                        sliderBehavior: SliderBehavior.stretch,
+                        width: 250.0,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.primary.withAlpha(40),
+                        toggleColor: Theme.of(context).colorScheme.primary,
+                        action: (controller) async {
+                          controller.loading();
+                          await Future.delayed(const Duration(seconds: 1));
+                          controller.success();
+
+                          finishedTasks.add(tasks.removeAt(index));
+
+                          await Future.delayed(const Duration(seconds: 3));
+                          controller.reset();
+                        },
+                        child: const Text('Finish task'),
+                      ),
               ),
             ],
           ),

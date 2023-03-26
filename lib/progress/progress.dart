@@ -27,54 +27,66 @@ class _Progress extends State<StatefulWidget> {
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(10),
-                    child: ListView.builder(
-                      itemCount: tasks.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              gradient: LinearGradient(
-                                colors: [
-                                  Theme.of(context).colorScheme.primary,
-                                  Activity.typeColors[
-                                          tasks[index].activity.type] ??
-                                      Colors.amber,
-                                ],
-                              ),
+                    child: tasks.isEmpty
+                        ? const Center(
+                            child: Text(
+                              "No tasks, no progress. Add a task today!",
+                              style: TextStyle(fontSize: 28),
                             ),
-                            child: ListTile(
-                                trailing: Icon(Activity
-                                    .typeIcons[tasks[index].activity.type]),
-                                onTap: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        elevation: 0,
-                                        content: SizedBox(
-                                          height: constraints.maxHeight / 3,
-                                          child: ActivityCard.createCard(
-                                              tasks[index].activity,
-                                              context,
-                                              false,
-                                              0),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                                onLongPress: () {
-                                  setState(() {
-                                    tasks.remove(tasks[index]);
-                                  });
-                                },
-                                title: Text(tasks[index].activity.activity)),
+                          )
+                        : ListView.builder(
+                            itemCount: tasks.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                padding: const EdgeInsets.only(bottom: 10),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Theme.of(context).colorScheme.primary,
+                                        Activity.typeColors[
+                                                tasks[index].activity.type] ??
+                                            Colors.amber,
+                                      ],
+                                    ),
+                                  ),
+                                  child: ListTile(
+                                      trailing: Icon(Activity.typeIcons[
+                                          tasks[index].activity.type]),
+                                      onTap: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              child: SizedBox(
+                                                width: constraints.maxWidth,
+                                                height:
+                                                    constraints.maxHeight / 2,
+                                                child: ActivityCard.createCard(
+                                                  activity:
+                                                      tasks[index].activity,
+                                                  context: context,
+                                                  challenge: false,
+                                                  page: 0,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                      onLongPress: () {
+                                        setState(() {
+                                          tasks.remove(tasks[index]);
+                                        });
+                                      },
+                                      title:
+                                          Text(tasks[index].activity.activity)),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
                   ),
                 ),
               ),
