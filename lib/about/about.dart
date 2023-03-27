@@ -1,23 +1,15 @@
+import 'package:circular/circular.dart';
 import 'package:flutter/material.dart';
+import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 
 import '../object/user.dart';
 
-class About extends StatefulWidget {
-  User user;
-
-  About({required this.user, super.key});
-
-  @override
-  State<About> createState() => _AboutState(user);
-}
-
-class _AboutState extends State<About> {
-  User user;
-
-  _AboutState(this.user);
+class About extends StatelessWidget {
+  const About({super.key});
 
   @override
   Widget build(BuildContext context) {
+    User user = User.user[0];
     return Scaffold(body: LayoutBuilder(
       builder: (builder, constraints) {
         return Padding(
@@ -50,7 +42,7 @@ class _AboutState extends State<About> {
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: CircleAvatar(
-                              radius: 40,
+                              radius: 50,
                               child: user.image
                                   ? const Center()
                                   : const Icon(
@@ -59,30 +51,31 @@ class _AboutState extends State<About> {
                             ),
                           ),
                           Expanded(
-                            flex: 1,
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
-                                Text(
-                                  user.name,
-                                  style: const TextStyle(fontSize: 24),
+                                Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Text(
+                                    user.name,
+                                    style: const TextStyle(fontSize: 24),
+                                  ),
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    FilledButton(
-                                        onPressed: () {},
-                                        child: Text(
-                                            'Completed: ${user.completedTasks}')),
-                                    FilledButton(
-                                        onPressed: () {},
-                                        child: Text(
-                                            'Pending: ${user.pendingTasks}')),
-                                    FilledButton(
-                                        onPressed: () {},
-                                        child:
-                                            Text('Failed: ${user.failedTasks}'))
-                                  ],
+                                Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      SimpleCircularProgressBar(
+                                        mergeMode: true,
+                                        onGetText: (double value) {
+                                          return Text('${value.toInt()}%');
+                                        },
+                                      ),
+                                    ],
+                                  ),
                                 )
                               ],
                             ),

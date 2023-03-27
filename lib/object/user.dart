@@ -1,17 +1,17 @@
 class User {
   String name;
   bool theme;
+  int acceptedTasks;
   int completedTasks;
-  int failedTasks;
-  int pendingTasks;
   bool image;
+
+  static List<User> user = [];
 
   User({
     this.name = "default",
     this.theme = false,
-    this.completedTasks = 0,
-    this.failedTasks = 0,
-    this.pendingTasks = 0,
+    this.acceptedTasks = 10,
+    this.completedTasks = 3,
     this.image = false,
   });
 }

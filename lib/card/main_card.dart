@@ -3,6 +3,7 @@ import 'package:metaballs/metaballs.dart';
 import 'package:what_to_do/card/activity_card.dart';
 import '../object/activity.dart';
 import '../object/fetch.dart';
+import '../object/user.dart';
 
 class MainCard extends StatefulWidget {
   const MainCard({super.key});
@@ -59,11 +60,13 @@ class _MainCard extends State<StatefulWidget> {
                       children: [
                         showActivity
                             ? const Center()
-                            : const Padding(
-                                padding: EdgeInsets.all(8.0),
+                            : Padding(
+                                padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'What to do Today?',
-                                  style: TextStyle(fontSize: 56),
+                                  User.user[0].name == 'default'
+                                      ? 'What to do Today?'
+                                      : 'What to do Today, ${User.user[0].name}?',
+                                  style: const TextStyle(fontSize: 56),
                                 ),
                               ),
                         showActivity
