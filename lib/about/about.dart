@@ -1,15 +1,28 @@
-import 'package:circular/circular.dart';
 import 'package:flutter/material.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 
 import '../object/user.dart';
 
-class About extends StatelessWidget {
+class About extends StatefulWidget {
   const About({super.key});
+
+  @override
+  State<About> createState() => _AboutState();
+}
+
+class _AboutState extends State<About> {
+  late ValueNotifier<double> valueNotifier;
+
+  @override
+  void initState() {
+    super.initState();
+    valueNotifier = ValueNotifier(0.0);
+  }
 
   @override
   Widget build(BuildContext context) {
     User user = User.user[0];
+    valueNotifier = ValueNotifier(user.completedTasks.toDouble());
     return Scaffold(body: LayoutBuilder(
       builder: (builder, constraints) {
         return Padding(
@@ -50,36 +63,50 @@ class About extends StatelessWidget {
                                     ),
                             ),
                           ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Text(
-                                    user.name,
-                                    style: const TextStyle(fontSize: 24),
-                                  ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Text(
+                                  user.name,
+                                  style: const TextStyle(fontSize: 24),
                                 ),
-                                Padding(
-                                  padding: const EdgeInsets.all(8),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      SimpleCircularProgressBar(
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: SimpleCircularProgressBar(
+                                        size: 80,
+                                        maxValue: user.acceptedTasks.toDouble(),
                                         mergeMode: true,
+                                        valueNotifier: valueNotifier,
                                         onGetText: (double value) {
-                                          return Text('${value.toInt()}%');
+                                          return Text('${value.toInt() * 10}%');
                                         },
                                       ),
-                                    ],
-                                  ),
-                                )
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text('Completed tasks: ${user.completedTasks}'),
+                                Text('Accepted tasks: ${user.acceptedTasks}'),
                               ],
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),

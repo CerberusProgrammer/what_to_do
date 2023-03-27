@@ -1,9 +1,10 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:metaballs/metaballs.dart';
 import 'package:what_to_do/card/activity_card.dart';
 import '../object/activity.dart';
 import '../object/fetch.dart';
-import '../object/user.dart';
 
 class MainCard extends StatefulWidget {
   const MainCard({super.key});
@@ -62,11 +63,59 @@ class _MainCard extends State<StatefulWidget> {
                             ? const Center()
                             : Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  User.user[0].name == 'default'
-                                      ? 'What to do Today?'
-                                      : 'What to do Today, ${User.user[0].name}?',
-                                  style: const TextStyle(fontSize: 56),
+                                child: SizedBox(
+                                  height: 400,
+                                  child: DefaultTextStyle(
+                                    style: GoogleFonts.anton(
+                                      fontSize: 56,
+                                    ),
+                                    child: AnimatedTextKit(
+                                      pause: const Duration(milliseconds: 100),
+                                      repeatForever: true,
+                                      animatedTexts: [
+                                        RotateAnimatedText(
+                                            "What's next on your to-do list?",
+                                            duration:
+                                                const Duration(seconds: 10)),
+                                        RotateAnimatedText(
+                                            "What adventures await you today?",
+                                            duration:
+                                                const Duration(seconds: 10)),
+                                        RotateAnimatedText(
+                                            "What exciting plans do you have for today?",
+                                            duration:
+                                                const Duration(seconds: 10)),
+                                        RotateAnimatedText(
+                                            "What will you discover today?",
+                                            duration:
+                                                const Duration(seconds: 10)),
+                                        RotateAnimatedText(
+                                            "What's on your agenda for today?",
+                                            duration:
+                                                const Duration(seconds: 10)),
+                                        RotateAnimatedText(
+                                            "What's your next big move?",
+                                            duration:
+                                                const Duration(seconds: 10)),
+                                        RotateAnimatedText(
+                                            "What's your next adventure?",
+                                            duration:
+                                                const Duration(seconds: 10)),
+                                        RotateAnimatedText(
+                                            "What new experience will you have today?",
+                                            duration:
+                                                const Duration(seconds: 10)),
+                                        RotateAnimatedText(
+                                            "What's your next challenge?",
+                                            duration:
+                                                const Duration(seconds: 10)),
+                                        RotateAnimatedText(
+                                            "What new things will you learn today?",
+                                            duration:
+                                                const Duration(seconds: 10)),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
                         showActivity
