@@ -35,14 +35,14 @@ class _AboutState extends State<About> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Padding(
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.only(left: 16),
                     child: Text(
                       'About',
                       style: TextStyle(fontSize: 48),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.only(left: 10, right: 10),
                     child: Card(
                       color: Theme.of(context)
                           .colorScheme
@@ -82,6 +82,15 @@ class _AboutState extends State<About> {
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
                                       child: SimpleCircularProgressBar(
+                                        progressColors: [
+                                          Theme.of(context).colorScheme.primary,
+                                          Theme.of(context)
+                                              .colorScheme
+                                              .onPrimary,
+                                        ],
+                                        fullProgressColor: Theme.of(context)
+                                            .colorScheme
+                                            .primary,
                                         size: 80,
                                         maxValue: user.acceptedTasks.toDouble(),
                                         mergeMode: true,

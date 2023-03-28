@@ -8,6 +8,8 @@ import '../object/task.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
+import 'finished_task.dart';
+
 class ActivityCard {
   Activity activity;
   bool challenge;
@@ -200,48 +202,32 @@ class ActivityCard {
                 ),
               ),
               Center(
-                child: challenge
-                    ? ActionSlider.standard(
-                        sliderBehavior: SliderBehavior.stretch,
-                        width: 250.0,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.primary.withAlpha(40),
-                        toggleColor: Theme.of(context).colorScheme.primary,
-                        action: (controller) async {
-                          controller.loading();
-                          await Future.delayed(const Duration(seconds: 1));
-                          controller.success();
+                  child: challenge
+                      ? ActionSlider.standard(
+                          sliderBehavior: SliderBehavior.stretch,
+                          width: 250.0,
+                          backgroundColor: Theme.of(context)
+                              .colorScheme
+                              .primary
+                              .withAlpha(40),
+                          toggleColor: Theme.of(context).colorScheme.primary,
+                          action: (controller) async {
+                            controller.loading();
+                            await Future.delayed(const Duration(seconds: 1));
+                            controller.success();
 
-                          tasks.add(Task(
-                            activity: activity,
-                          ));
+                            tasks.add(Task(
+                              activity: activity,
+                            ));
 
-                          HomeState.nextPage(page);
+                            HomeState.nextPage(page);
 
-                          await Future.delayed(const Duration(seconds: 3));
-                          controller.reset();
-                        },
-                        child: const Text('Take challenge'),
-                      )
-                    : ActionSlider.standard(
-                        sliderBehavior: SliderBehavior.stretch,
-                        width: 250.0,
-                        backgroundColor:
-                            Theme.of(context).colorScheme.primary.withAlpha(40),
-                        toggleColor: Theme.of(context).colorScheme.primary,
-                        action: (controller) async {
-                          controller.loading();
-                          await Future.delayed(const Duration(seconds: 1));
-                          controller.success();
-
-                          finishedTasks.add(tasks.removeAt(index));
-
-                          await Future.delayed(const Duration(seconds: 3));
-                          controller.reset();
-                        },
-                        child: const Text('Finish task'),
-                      ),
-              ),
+                            await Future.delayed(const Duration(seconds: 3));
+                            controller.reset();
+                          },
+                          child: const Text('Take challenge'),
+                        )
+                      : FinishedTask(index)),
             ],
           ),
         ),

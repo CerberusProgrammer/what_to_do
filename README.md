@@ -2,6 +2,11 @@
 
 "What to do?" is a mobile application built with Flutter that provides users with a wide range of activities to try out. The app is designed to inspire users to explore new hobbies, experiences, and adventures by generating random suggestions that they might not have considered otherwise.
 
+### Future Features
+- https://pub.dev/packages/social_share
+- https://pub.dev/packages/random_avatar
+- https://pub.dev/packages/liquid_swipe
+
 ### Features
 
 Here are some of the key features of "What to do?":

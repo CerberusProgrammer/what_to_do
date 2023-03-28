@@ -49,16 +49,18 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: TabBarView(
-        controller: controller,
-        children: pages,
+    return SafeArea(
+      child: Scaffold(
+        body: TabBarView(
+          controller: controller,
+          children: pages,
+        ),
+        bottomNavigationBar: Material(
+            child: TabBar(
+          tabs: _tabs,
+          controller: controller,
+        )),
       ),
-      bottomNavigationBar: Material(
-          child: TabBar(
-        tabs: _tabs,
-        controller: controller,
-      )),
     );
   }
 
