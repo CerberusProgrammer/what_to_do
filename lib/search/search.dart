@@ -73,10 +73,9 @@ class _Search extends State<StatefulWidget> {
                   children: [
                     displayCard
                         ? Expanded(
-                            child: ActivityCard.createCard(
+                            child: ActivityCard(
                               activity: wait,
                               challenge: true,
-                              context: context,
                               page: 1,
                             ),
                           )

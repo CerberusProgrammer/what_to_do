@@ -1,13 +1,12 @@
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
 
-import '../object/task.dart';
 import '../progress/tasks.dart';
 
 class FinishedTask extends StatefulWidget {
-  FinishedTask(this.index, {super.key});
+  const FinishedTask(this.index, {super.key});
 
-  int index;
+  final int index;
 
   @override
   State<StatefulWidget> createState() => _FinishedTask(index);
@@ -31,11 +30,12 @@ class _FinishedTask extends State<FinishedTask> {
         controller.success();
 
         setState(() {
-          Task task = tasks.removeAt(index);
-          finishedTasks.add(task);
+          finishedTasks.add(tasks[index]);
+          tasks.removeAt(index);
         });
 
         await Future.delayed(const Duration(seconds: 3));
+        Navigator.pop(context);
         controller.reset();
       },
       child: const Text('Finish task'),

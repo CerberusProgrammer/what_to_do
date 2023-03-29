@@ -10,19 +10,40 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'finished_task.dart';
 
-class ActivityCard {
-  Activity activity;
-  bool challenge;
+class ActivityCard extends StatefulWidget {
+  final Activity activity;
+  final bool challenge;
+  final int page;
+  final int index;
 
-  ActivityCard(this.activity, this.challenge);
+  const ActivityCard({
+    required this.activity,
+    required this.challenge,
+    super.key,
+    required this.page,
+    this.index = -1,
+  });
 
-  static Widget createCard({
-    required Activity activity,
-    required BuildContext context,
-    required bool challenge,
-    required int page,
-    int index = -1,
-  }) {
+  @override
+  State<StatefulWidget> createState() =>
+      _ActivityCard(activity, challenge, page, index);
+}
+
+class _ActivityCard extends State<StatefulWidget> {
+  final Activity activity;
+  final bool challenge;
+  final int page;
+  final int index;
+
+  _ActivityCard(
+    this.activity,
+    this.challenge,
+    this.page,
+    this.index,
+  );
+
+  @override
+  Widget build(BuildContext context) {
     return Card(
       elevation: 20,
       child: Container(
@@ -216,9 +237,11 @@ class ActivityCard {
                             await Future.delayed(const Duration(seconds: 1));
                             controller.success();
 
-                            tasks.add(Task(
-                              activity: activity,
-                            ));
+                            setState(() {
+                              tasks.add(Task(
+                                activity: activity,
+                              ));
+                            });
 
                             HomeState.nextPage(page);
 

@@ -64,10 +64,9 @@ class _Progress extends State<StatefulWidget> {
                                                 width: constraints.maxWidth,
                                                 height:
                                                     constraints.maxHeight / 2,
-                                                child: ActivityCard.createCard(
+                                                child: ActivityCard(
                                                   activity:
                                                       tasks[index].activity,
-                                                  context: context,
                                                   challenge: false,
                                                   page: 0,
                                                 ),

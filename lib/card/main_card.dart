@@ -131,11 +131,8 @@ class _MainCard extends State<StatefulWidget> {
                         showActivity
                             ? Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: ActivityCard.createCard(
-                                    activity: a,
-                                    challenge: true,
-                                    context: context,
-                                    page: 2),
+                                child: ActivityCard(
+                                    activity: a, challenge: true, page: 2),
                               )
                             : const Center(),
                         showActivity
