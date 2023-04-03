@@ -1,7 +1,7 @@
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
 
-import '../progress/tasks.dart';
+import '../data/tasks.dart';
 
 class FinishedTask extends StatefulWidget {
   const FinishedTask(this.index, {super.key});

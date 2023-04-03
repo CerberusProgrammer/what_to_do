@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:what_to_do/card/main_card.dart';
 import 'package:what_to_do/progress/progress.dart';
-import 'package:what_to_do/progress/tasks.dart';
+import 'package:what_to_do/data/tasks.dart';
 import 'package:what_to_do/search/search.dart';
 
 import 'about/about.dart';

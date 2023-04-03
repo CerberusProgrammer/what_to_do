@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:what_to_do/card/activity_card.dart';
-import 'package:what_to_do/progress/tasks.dart';
+import 'package:what_to_do/data/tasks.dart';
 
 import '../object/activity.dart';
 

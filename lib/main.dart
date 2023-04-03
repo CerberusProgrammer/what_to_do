@@ -6,6 +6,7 @@ import 'object/user.dart';
 
 void main() {
   User.user.add(User());
+
   runApp(MaterialApp(
     scrollBehavior: MyCustomScrollBehavior(),
     debugShowCheckedModeBanner: false,
