@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:what_to_do/data/activities.dart';
 import 'package:what_to_do/home.dart';
 import 'package:what_to_do/custom/my_custom_scroll_behavior.dart';
 
@@ -6,6 +7,7 @@ import 'object/user.dart';
 
 void main() {
   User.user.add(User());
+  Activities.setDataReady();
 
   runApp(MaterialApp(
     scrollBehavior: MyCustomScrollBehavior(),

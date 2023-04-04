@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:what_to_do/card/main_card.dart';
 import 'package:what_to_do/progress/progress.dart';
-import 'package:what_to_do/data/tasks.dart';
 import 'package:what_to_do/search/search.dart';
 
 import 'about/about.dart';
@@ -52,7 +51,6 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: Text('${tasks.length}')),
         body: TabBarView(
           controller: controller,
           children: pages,

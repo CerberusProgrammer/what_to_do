@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:what_to_do/card/activity_card.dart';
-import 'package:what_to_do/data/tasks.dart';
 
+import '../data/activities.dart';
 import '../object/activity.dart';
 
 class Progress extends StatefulWidget {
@@ -27,7 +27,7 @@ class _Progress extends State<StatefulWidget> {
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(10),
-                    child: tasks.isEmpty
+                    child: Activities.listActivity.isEmpty
                         ? const Center(
                             child: Text(
                               "No tasks, no progress. Add a task today!",
@@ -35,7 +35,7 @@ class _Progress extends State<StatefulWidget> {
                             ),
                           )
                         : ListView.builder(
-                            itemCount: tasks.length,
+                            itemCount: Activities.listActivity.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 10),
@@ -45,15 +45,15 @@ class _Progress extends State<StatefulWidget> {
                                     gradient: LinearGradient(
                                       colors: [
                                         Theme.of(context).colorScheme.primary,
-                                        Activity.typeColors[
-                                                tasks[index].activity.type] ??
+                                        Activity.typeColors[Activities
+                                                .listActivity[index].type] ??
                                             Colors.amber,
                                       ],
                                     ),
                                   ),
                                   child: ListTile(
                                       trailing: Icon(Activity.typeIcons[
-                                          tasks[index].activity.type]),
+                                          Activities.listActivity[index].type]),
                                       onTap: () {
                                         showDialog(
                                           context: context,
@@ -63,10 +63,10 @@ class _Progress extends State<StatefulWidget> {
                                               child: SizedBox(
                                                 width: constraints.maxWidth,
                                                 height:
-                                                    constraints.maxHeight / 2,
+                                                    constraints.maxHeight / 1.5,
                                                 child: ActivityCard(
-                                                  activity:
-                                                      tasks[index].activity,
+                                                  activity: Activities
+                                                      .listActivity[index],
                                                   challenge: false,
                                                   page: 0,
                                                 ),
@@ -77,11 +77,12 @@ class _Progress extends State<StatefulWidget> {
                                       },
                                       onLongPress: () {
                                         setState(() {
-                                          tasks.remove(tasks[index]);
+                                          Activities.listActivity.remove(
+                                              Activities.listActivity[index]);
                                         });
                                       },
-                                      title:
-                                          Text(tasks[index].activity.activity)),
+                                      title: Text(Activities
+                                          .listActivity[index].activity)),
                                 ),
                               );
                             },
