@@ -1,12 +1,7 @@
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:what_to_do/home.dart';
-import 'package:what_to_do/data/tasks.dart';
-
-import '../data/activities.dart';
 import '../object/activity.dart';
-import '../object/task.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
@@ -238,27 +233,6 @@ class _ActivityCard extends State<StatefulWidget> {
                             controller.loading();
                             await Future.delayed(const Duration(seconds: 1));
                             controller.success();
-
-                            setState(() {
-                              tasks.add(Task(
-                                activity: activity,
-                              ));
-                            });
-
-                            openDatabase(
-                              'wtd.db',
-                              onCreate: (db, version) {
-                                return db.execute(
-                                  'CREATE TABLE activities(activity TEXT, type TEXT, participants INTEGER, price REAL, link TEXT, key TEXT PRIMARY KEY, accessibility REAL)',
-                                );
-                              },
-                              version: 1,
-                            ).then((database) {
-                              Activities.insert(database, activity);
-                              setState(() {
-                                Activities.setDataReady();
-                              });
-                            });
 
                             HomeState.nextPage(page);
 

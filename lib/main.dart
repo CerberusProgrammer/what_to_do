@@ -7,7 +7,6 @@ import 'object/user.dart';
 
 void main() {
   User.user.add(User());
-  Activities.setDataReady();
 
   runApp(MaterialApp(
     scrollBehavior: MyCustomScrollBehavior(),
@@ -19,7 +18,7 @@ void main() {
       brightness: Brightness.light,
     ),
     darkTheme: ThemeData(
-      colorSchemeSeed: Colors.amber,
+      colorSchemeSeed: Colors.blueGrey,
       useMaterial3: true,
       brightness: Brightness.dark,
     ),

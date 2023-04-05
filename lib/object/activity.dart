@@ -8,6 +8,7 @@ class Activity {
   String link;
   String key;
   double accessibility;
+  bool isCompleted;
 
   static const Map<String, Color> typeColors = {
     "education": Color(0xFF2196F3),
@@ -53,6 +54,7 @@ class Activity {
     required this.link,
     required this.key,
     required this.accessibility,
+    this.isCompleted = false,
   });
 
   Activity.random({
@@ -63,6 +65,7 @@ class Activity {
     this.link = "",
     this.key = "",
     this.accessibility = 0,
+    this.isCompleted = false,
   });
 
   factory Activity.fromJSON(dynamic json) {
@@ -99,6 +102,7 @@ class Activity {
         'link': link,
         'key': key,
         'accessibility': accessibility,
+        'isCompleted': isCompleted,
       };
 
   Map<String, dynamic> toMap() {
@@ -110,11 +114,7 @@ class Activity {
       'link': link,
       'key': key,
       'accessibility': accessibility,
+      'isCompleted': isCompleted,
     };
-  }
-
-  @override
-  String toString() {
-    return '"activity": $activity, "type": $type, "participants": $participants, "price": $price, "link": $link, "key": $key, "accessibility": $accessibility';
   }
 }
