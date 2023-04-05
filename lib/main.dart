@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:what_to_do/data/activities.dart';
 import 'package:what_to_do/home.dart';
 import 'package:what_to_do/custom/my_custom_scroll_behavior.dart';
 
@@ -18,7 +17,7 @@ void main() {
       brightness: Brightness.light,
     ),
     darkTheme: ThemeData(
-      colorSchemeSeed: Colors.blueGrey,
+      colorSchemeSeed: Colors.amber,
       useMaterial3: true,
       brightness: Brightness.dark,
     ),

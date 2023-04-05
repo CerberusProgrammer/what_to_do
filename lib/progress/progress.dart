@@ -14,7 +14,7 @@ class Progress extends StatefulWidget {
 class _Progress extends State<StatefulWidget> {
   @override
   Widget build(BuildContext context) {
-    List<Activity> listActivityProgress = Data.listActivity;
+    List<Activity> listActivityProgress = listActivity;
 
     return Scaffold(
       body: LayoutBuilder(

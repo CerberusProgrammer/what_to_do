@@ -1,17 +1,25 @@
-import 'package:sqflite/sqflite.dart';
-
 import '../object/activity.dart';
 
+List<Activity> listActivity = [];
+/*
 class Data {
-  static List<Activity> listActivity = [];
-
   void openData() async {
-    var data = openDatabase(
+    var data = await openDatabase(
       'wtd.db',
       onCreate: (db, version) {
-        return db.execute(
-          'CREATE TABLE activities(id INTEGER PRIMARY KEY, activity TEXT, type TEXT, participants INTEGER, price REAL, link TEXT, key TEXT, accessibility REAL, isCompleted INTEGER)',
-        );
+        return db.execute('''
+  CREATE TABLE activities(
+    id INTEGER PRIMARY KEY,
+    activity TEXT,
+    type TEXT,
+    participants INTEGER,
+    price REAL,
+    link TEXT,
+    key TEXT,
+    accessibility REAL,
+    isCompleted INTEGER
+  )
+''');
       },
       version: 1,
     );
@@ -61,3 +69,4 @@ class Data {
     return activities;
   }
 }
+*/

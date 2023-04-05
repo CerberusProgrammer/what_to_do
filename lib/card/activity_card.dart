@@ -1,6 +1,7 @@
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:what_to_do/home.dart';
+import '../data/data.dart';
 import '../object/activity.dart';
 
 import 'package:url_launcher/url_launcher.dart';
@@ -8,12 +9,12 @@ import 'package:url_launcher/url_launcher.dart';
 import 'finished_task.dart';
 
 class ActivityCard extends StatefulWidget {
-  final Activity activity;
-  final bool challenge;
-  final int page;
-  final int index;
+  Activity activity;
+  bool challenge;
+  int page;
+  int index;
 
-  const ActivityCard({
+  ActivityCard({
     required this.activity,
     required this.challenge,
     super.key,
@@ -27,10 +28,10 @@ class ActivityCard extends StatefulWidget {
 }
 
 class _ActivityCard extends State<StatefulWidget> {
-  final Activity activity;
-  final bool challenge;
-  final int page;
-  final int index;
+  Activity activity;
+  bool challenge;
+  int page;
+  int index;
 
   _ActivityCard(
     this.activity,
@@ -41,6 +42,8 @@ class _ActivityCard extends State<StatefulWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print('calle');
+    print(activity.activity);
     return Card(
       elevation: 20,
       child: Container(
@@ -235,6 +238,10 @@ class _ActivityCard extends State<StatefulWidget> {
                             controller.success();
 
                             HomeState.nextPage(page);
+
+                            setState(() {
+                              listActivity.add(activity);
+                            });
 
                             await Future.delayed(const Duration(seconds: 3));
                             controller.reset();
