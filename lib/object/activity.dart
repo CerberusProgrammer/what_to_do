@@ -117,4 +117,9 @@ class Activity {
       'isCompleted': isCompleted,
     };
   }
+
+  @override
+  String toString() {
+    return 'Activity{activity: $activity, type: $type, participants: $participants, price: $price, link: $link, key: $key, accessibility: $accessibility, isCompleted: $isCompleted}';
+  }
 }

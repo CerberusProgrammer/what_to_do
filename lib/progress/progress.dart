@@ -4,14 +4,9 @@ import 'package:what_to_do/card/activity_card.dart';
 import '../data/data.dart';
 import '../object/activity.dart';
 
-class Progress extends StatefulWidget {
+class Progress extends StatelessWidget {
   const Progress({super.key});
 
-  @override
-  State<StatefulWidget> createState() => _Progress();
-}
-
-class _Progress extends State<StatefulWidget> {
   @override
   Widget build(BuildContext context) {
     List<Activity> listActivityProgress = listActivity;

@@ -1,5 +1,6 @@
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:what_to_do/home.dart';
 import '../data/data.dart';
 import '../object/activity.dart';
@@ -8,42 +9,22 @@ import 'package:url_launcher/url_launcher.dart';
 
 import 'finished_task.dart';
 
-class ActivityCard extends StatefulWidget {
-  Activity activity;
-  bool challenge;
-  int page;
-  int index;
+class ActivityCard extends StatelessWidget {
+  final Activity activity;
+  final bool challenge;
+  final int page;
+  final int index;
 
-  ActivityCard({
+  const ActivityCard({
     required this.activity,
     required this.challenge,
-    super.key,
     required this.page,
     this.index = -1,
+    super.key,
   });
 
   @override
-  State<StatefulWidget> createState() =>
-      _ActivityCard(activity, challenge, page, index);
-}
-
-class _ActivityCard extends State<StatefulWidget> {
-  Activity activity;
-  bool challenge;
-  int page;
-  int index;
-
-  _ActivityCard(
-    this.activity,
-    this.challenge,
-    this.page,
-    this.index,
-  );
-
-  @override
   Widget build(BuildContext context) {
-    print('calle');
-    print(activity.activity);
     return Card(
       elevation: 20,
       child: Container(
@@ -239,9 +220,17 @@ class _ActivityCard extends State<StatefulWidget> {
 
                             HomeState.nextPage(page);
 
-                            setState(() {
-                              listActivity.add(activity);
-                            });
+                            listActivity.add(activity);
+
+                            openDatabase(
+                              'wtd.db',
+                              onCreate: (db, version) {
+                                return db.execute(
+                                  'CREATE TABLE activities(id INTEGER PRIMARY KEY, activity TEXT, type TEXT, participants INTEGER, price REAL, link TEXT, key TEXT, accessibility REAL, isCompleted INTEGER)',
+                                );
+                              },
+                              version: 1,
+                            ).then((value) {});
 
                             await Future.delayed(const Duration(seconds: 3));
                             controller.reset();

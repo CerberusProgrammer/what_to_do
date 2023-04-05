@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:what_to_do/home.dart';
 import 'package:what_to_do/custom/my_custom_scroll_behavior.dart';
 
-import 'object/user.dart';
+import 'data/data.dart';
 
 void main() {
-  User.user.add(User());
-
   runApp(MaterialApp(
     scrollBehavior: MyCustomScrollBehavior(),
     debugShowCheckedModeBanner: false,

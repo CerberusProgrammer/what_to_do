@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:metaballs/metaballs.dart';
@@ -68,8 +69,7 @@ class _MainCard extends State<StatefulWidget> {
                                     style: GoogleFonts.anton(
                                       fontSize: 56,
                                     ),
-                                    child: Text(
-                                        'hi') /*AnimatedTextKit(
+                                    child: AnimatedTextKit(
                                       pause: const Duration(milliseconds: 100),
                                       repeatForever: true,
                                       animatedTexts: [
@@ -114,8 +114,7 @@ class _MainCard extends State<StatefulWidget> {
                                             duration:
                                                 const Duration(seconds: 10)),
                                       ],
-                                    )*/
-                                    ,
+                                    ),
                                   ),
                                 ),
                               ),
@@ -141,8 +140,6 @@ class _MainCard extends State<StatefulWidget> {
                                 onPressed: () {
                                   setState(() {
                                     showActivity = true;
-
-                                    a = Activity.random();
                                   });
                                 },
                                 child: const Text('Another'))
