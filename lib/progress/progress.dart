@@ -7,10 +7,10 @@ import '../object/activity.dart';
 class Progress extends StatelessWidget {
   const Progress({super.key});
 
+  static late BuildContext buildContext;
+
   @override
   Widget build(BuildContext context) {
-    List<Activity> listActivityProgress = listActivity;
-
     return Scaffold(
       body: LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -24,7 +24,7 @@ class Progress extends StatelessWidget {
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(10),
-                    child: listActivityProgress.isEmpty
+                    child: listActivity.isEmpty
                         ? const Center(
                             child: Text(
                               "No tasks, no progress. Add a task today!",
@@ -32,7 +32,7 @@ class Progress extends StatelessWidget {
                             ),
                           )
                         : ListView.builder(
-                            itemCount: listActivityProgress.length,
+                            itemCount: listActivity.length,
                             itemBuilder: (BuildContext context, int index) {
                               return Padding(
                                 padding: const EdgeInsets.only(bottom: 10),
@@ -43,40 +43,41 @@ class Progress extends StatelessWidget {
                                       colors: [
                                         Theme.of(context).colorScheme.primary,
                                         Activity.typeColors[
-                                                listActivityProgress[index]
-                                                    .type] ??
+                                                listActivity[index].type] ??
                                             Colors.amber,
                                       ],
                                     ),
                                   ),
                                   child: ListTile(
-                                      trailing: Icon(Activity.typeIcons[
-                                          listActivityProgress[index].type]),
+                                      trailing: Icon(Activity
+                                          .typeIcons[listActivity[index].type]),
                                       onTap: () {
                                         showDialog(
                                           context: context,
-                                          builder: (BuildContext context) {
+                                          builder: (BuildContext cont) {
+                                            buildContext = cont;
                                             return Dialog(
                                               elevation: 0,
                                               child: SizedBox(
-                                                width: constraints.maxWidth,
+                                                width: constraints.maxWidth >
+                                                        600
+                                                    ? constraints.maxWidth / 2
+                                                    : 300,
                                                 height:
                                                     constraints.maxHeight / 1.5,
                                                 child: ActivityCard(
-                                                  activity:
-                                                      listActivityProgress[
-                                                          index],
+                                                  activity: listActivity[index],
                                                   challenge: false,
                                                   page: 0,
+                                                  index: index,
                                                 ),
                                               ),
                                             );
                                           },
                                         );
                                       },
-                                      onLongPress: () {},
-                                      title: Text(listActivityProgress[index]
-                                          .activity)),
+                                      title:
+                                          Text(listActivity[index].activity)),
                                 ),
                               );
                             },

@@ -230,7 +230,9 @@ class ActivityCard extends StatelessWidget {
                                 );
                               },
                               version: 1,
-                            ).then((value) {});
+                            ).then((value) {
+                              Data.insert(value, activity);
+                            });
 
                             await Future.delayed(const Duration(seconds: 3));
                             controller.reset();

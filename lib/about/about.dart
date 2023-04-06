@@ -21,7 +21,7 @@ class _AboutState extends State<About> {
 
   @override
   Widget build(BuildContext context) {
-    User user = User.user[0];
+    User user = User.mainUser;
     valueNotifier = ValueNotifier(user.completedTasks.toDouble());
     return Scaffold(body: LayoutBuilder(
       builder: (builder, constraints) {
@@ -69,10 +69,12 @@ class _AboutState extends State<About> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8),
-                                child: Text(
-                                  user.name,
-                                  style: const TextStyle(fontSize: 24),
-                                ),
+                                child: user.name == "default"
+                                    ? const Center()
+                                    : Text(
+                                        user.name,
+                                        style: const TextStyle(fontSize: 24),
+                                      ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.all(8),

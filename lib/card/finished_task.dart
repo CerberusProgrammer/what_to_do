@@ -1,19 +1,16 @@
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:sqflite/sqflite.dart';
+import 'package:what_to_do/progress/progress.dart';
 
-class FinishedTask extends StatefulWidget {
-  const FinishedTask(this.index, {super.key});
+import '../data/data.dart';
+import '../home.dart';
+import '../object/activity.dart';
 
+class FinishedTask extends StatelessWidget {
   final int index;
 
-  @override
-  State<StatefulWidget> createState() => _FinishedTask(index);
-}
-
-class _FinishedTask extends State<FinishedTask> {
-  int index;
-
-  _FinishedTask(this.index);
+  const FinishedTask(this.index, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +24,25 @@ class _FinishedTask extends State<FinishedTask> {
         await Future.delayed(const Duration(seconds: 1));
         controller.success();
 
-        await Future.delayed(const Duration(seconds: 3));
-        controller.reset();
+        Activity activity = listActivity[index];
+        listActivity.removeAt(index);
+
+        HomeState.nextPage(1);
+
+        openDatabase(
+          'wtd.db',
+          onCreate: (db, version) {
+            return db.execute(
+              'CREATE TABLE activities(id INTEGER PRIMARY KEY, activity TEXT, type TEXT, participants INTEGER, price REAL, link TEXT, key TEXT, accessibility REAL, isCompleted INTEGER)',
+            );
+          },
+          version: 1,
+        ).then((value) {
+          Data.delete(value, activity);
+        });
+
+        await Future.delayed(const Duration(seconds: 1));
+        Navigator.pop(Progress.buildContext);
       },
       child: const Text('Finish task'),
     );
