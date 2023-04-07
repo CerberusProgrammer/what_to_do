@@ -9,22 +9,11 @@ List<User> listUser = [];
 
 class Data {
   static void insert(Database database, Activity activity, String table) {
-    database
-        .insert(
-          table,
-          activity.toMap(),
-          conflictAlgorithm: ConflictAlgorithm.replace,
-        )
-        .then((value) {});
-  }
-
-  static void update(Database database, Activity activity, String table) {
-    database.update(
+    database.insert(
       table,
       activity.toMap(),
-      where: 'key = ?',
-      whereArgs: [activity.key],
-    ).then((value) {});
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
   }
 
   static void delete(Database database, Activity activity, String table) {
@@ -32,7 +21,24 @@ class Data {
       table,
       where: 'key = ?',
       whereArgs: [activity.key],
-    ).then((value) {});
+    );
+  }
+
+  static void insertUser(Database database, User user, String table) {
+    database.insert(
+      table,
+      user.toMap(),
+      conflictAlgorithm: ConflictAlgorithm.replace,
+    );
+  }
+
+  static void updateUser(Database database, User user) {
+    database.update(
+      'users',
+      user.toMap(),
+      where: "name = ?",
+      whereArgs: [user.name],
+    );
   }
 
   static Future<List<Activity>> getActivities(Database database) async {

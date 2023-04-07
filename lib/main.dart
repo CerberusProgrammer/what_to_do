@@ -43,7 +43,8 @@ void main() {
   openDatabase(userDatabase, onCreate: (db, version) {
     return db.execute(
         "CREATE TABLE $userTable(name TEXT PRIMARY KEY, completed INTEGER, accepted INTEGER, education INTEGER, recreational INTEGER, social INTEGER, diy INTEGER, charity INTEGER, cooking INTEGER, relaxation INTEGER, music INTEGER, busywork INTEGER, image INTEGER)");
-  }).then((database) {
+  }, version: 1)
+      .then((database) {
     Data.getUsers(database).then((value) {
       listUser = value;
       if (listUser.isNotEmpty) {

@@ -34,20 +34,16 @@ class FinishedTask extends StatelessWidget {
         User.mainUser.completed += 1;
         User.mainUser.saveType(activity.type);
 
-        openDatabase(
-          'wtd.db',
-          onCreate: (db, version) {
-            return db.execute(
-              'CREATE TABLE activities(id INTEGER PRIMARY KEY, activity TEXT, type TEXT, participants INTEGER, price REAL, link TEXT, key TEXT, accessibility REAL, isCompleted INTEGER)',
-            );
-          },
-          version: 1,
-        ).then((value) {
+        openDatabase('wtd.db').then((value) {
           Data.delete(
             value,
             activity,
             activityTable,
           );
+        });
+
+        openDatabase(userDatabase).then((database) {
+          Data.updateUser(database, User.mainUser);
         });
 
         await Future.delayed(const Duration(seconds: 1));

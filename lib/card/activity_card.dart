@@ -223,16 +223,9 @@ class ActivityCard extends StatelessWidget {
                             HomeState.nextPage(page);
 
                             listActivity.add(activity);
+                            User.mainUser.accepted += 1;
 
-                            openDatabase(
-                              'wtd.db',
-                              onCreate: (db, version) {
-                                return db.execute(
-                                  'CREATE TABLE activities(id INTEGER PRIMARY KEY, activity TEXT, type TEXT, participants INTEGER, price REAL, link TEXT, key TEXT, accessibility REAL, isCompleted INTEGER)',
-                                );
-                              },
-                              version: 1,
-                            ).then((value) {
+                            openDatabase(activityDatabase).then((value) {
                               Data.insert(
                                 value,
                                 activity,
@@ -240,7 +233,13 @@ class ActivityCard extends StatelessWidget {
                               );
                             });
 
-                            User.mainUser.accepted += 1;
+                            openDatabase(userDatabase).then((value) {
+                              Data.insertUser(
+                                value,
+                                User.mainUser,
+                                userTable,
+                              );
+                            });
 
                             await Future.delayed(const Duration(seconds: 3));
                             controller.reset();

@@ -21,8 +21,7 @@ class _AboutState extends State<About> {
 
   @override
   Widget build(BuildContext context) {
-    User user = User.mainUser;
-    valueNotifier = ValueNotifier(user.completed.toDouble());
+    valueNotifier = ValueNotifier(User.mainUser.completed.toDouble());
     return Scaffold(body: LayoutBuilder(
       builder: (builder, constraints) {
         return Padding(
@@ -67,10 +66,10 @@ class _AboutState extends State<About> {
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8),
-                                child: user.name == "default"
+                                child: User.mainUser.name == "default"
                                     ? const Center()
                                     : Text(
-                                        user.name,
+                                        User.mainUser.name,
                                         style: const TextStyle(fontSize: 24),
                                       ),
                               ),
@@ -92,13 +91,13 @@ class _AboutState extends State<About> {
                                             .colorScheme
                                             .primary,
                                         size: 80,
-                                        maxValue: user.accepted.toDouble(),
+                                        maxValue:
+                                            User.mainUser.accepted.toDouble(),
                                         mergeMode: true,
                                         valueNotifier: valueNotifier,
                                         onGetText: (double value) {
-                                          print(value);
                                           return Text(
-                                              '${((value.toInt() / user.accepted) * 100).toInt()}%');
+                                              '${((value.toInt() / User.mainUser.accepted) * 100).toInt()}%');
                                         },
                                       ),
                                     ),
@@ -113,8 +112,10 @@ class _AboutState extends State<About> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Completed tasks: ${user.completed}'),
-                                Text('Accepted tasks: ${user.accepted}'),
+                                Text(
+                                    'Completed tasks: ${User.mainUser.completed}'),
+                                Text(
+                                    'Accepted tasks: ${User.mainUser.accepted}'),
                               ],
                             ),
                           )
