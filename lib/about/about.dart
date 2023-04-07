@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 import 'package:what_to_do/about/type_cards.dart';
 import 'package:what_to_do/about/user_card.dart';
 
@@ -46,27 +45,23 @@ class _AboutState extends State<About> {
           child: Card(
             elevation: 10,
             child: Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
+              child: ListView(
                 children: [
-                  const Padding(
-                    padding: EdgeInsets.only(left: 16),
-                    child: Text(
-                      'About',
-                      style: TextStyle(fontSize: 48),
-                    ),
-                  ),
                   Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
+                      padding:
+                          const EdgeInsets.only(top: 10, left: 10, right: 10),
                       child: UserCard(
                         valueNotifier: valueNotifierTasks,
                       )),
                   Padding(
                       padding: const EdgeInsets.all(10),
                       child: Expanded(
-                        child: TypeCards(
-                            listValuesNotifierTasks: listValuesNotifierTasks),
+                        child: SingleChildScrollView(
+                          child: TypeCards(
+                            listValuesNotifierTasks: listValuesNotifierTasks,
+                            constraints: constraints,
+                          ),
+                        ),
                       ))
                 ],
               ),

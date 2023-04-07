@@ -46,6 +46,18 @@ class Activity {
     "busywork": Icons.work,
   };
 
+  static const Map<int, IconData> typeIconsInteger = {
+    0: Icons.school,
+    1: Icons.beach_access,
+    2: Icons.chat_bubble_outline,
+    3: Icons.build,
+    4: Icons.favorite,
+    5: Icons.restaurant,
+    6: Icons.spa,
+    7: Icons.music_note,
+    8: Icons.work,
+  };
+
   static const Map<String, String> typeDescriptions = {
     "education": "Activities related to learning or gaining knowledge.",
     "recreational": "Activities done for fun or leisure.",
