@@ -1,32 +1,35 @@
 import 'package:sqflite/sqflite.dart';
 
 import '../object/activity.dart';
+import '../object/user.dart';
+import 'constants.dart';
 
 List<Activity> listActivity = [];
+List<User> listUser = [];
 
 class Data {
-  static void insert(Database database, Activity activity) {
+  static void insert(Database database, Activity activity, String table) {
     database
         .insert(
-          'activities',
+          table,
           activity.toMap(),
           conflictAlgorithm: ConflictAlgorithm.replace,
         )
         .then((value) {});
   }
 
-  static void update(Database database, Activity activity) {
+  static void update(Database database, Activity activity, String table) {
     database.update(
-      'activities',
+      table,
       activity.toMap(),
       where: 'key = ?',
       whereArgs: [activity.key],
     ).then((value) {});
   }
 
-  static void delete(Database database, Activity activity) {
+  static void delete(Database database, Activity activity, String table) {
     database.delete(
-      'activities',
+      table,
       where: 'key = ?',
       whereArgs: [activity.key],
     ).then((value) {});
@@ -47,5 +50,27 @@ class Data {
     });
 
     return activities;
+  }
+
+  static Future<List<User>> getUsers(Database database) async {
+    final maps = await database.query(userTable);
+    final users = List.generate(maps.length, (i) {
+      return User(
+        name: maps[i]['name'] as String,
+        completed: maps[i]['completed'] as int,
+        accepted: maps[i]['accepted'] as int,
+        education: maps[i]['education'] as int,
+        recreational: maps[i]['recreational'] as int,
+        social: maps[i]['social'] as int,
+        diy: maps[i]['diy'] as int,
+        charity: maps[i]['charity'] as int,
+        cooking: maps[i]['cooking'] as int,
+        relaxation: maps[i]['relaxation'] as int,
+        music: maps[i]['music'] as int,
+        busywork: maps[i]['busywork'] as int,
+      );
+    });
+
+    return users;
   }
 }

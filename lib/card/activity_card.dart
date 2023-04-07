@@ -1,12 +1,14 @@
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:what_to_do/data/constants.dart';
 import 'package:what_to_do/home.dart';
 import '../data/data.dart';
 import '../object/activity.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 
+import '../object/user.dart';
 import 'finished_task.dart';
 
 class ActivityCard extends StatelessWidget {
@@ -231,8 +233,14 @@ class ActivityCard extends StatelessWidget {
                               },
                               version: 1,
                             ).then((value) {
-                              Data.insert(value, activity);
+                              Data.insert(
+                                value,
+                                activity,
+                                activityTable,
+                              );
                             });
+
+                            User.mainUser.accepted += 1;
 
                             await Future.delayed(const Duration(seconds: 3));
                             controller.reset();

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:what_to_do/data/constants.dart';
 import 'package:what_to_do/data/data.dart';
 import 'package:what_to_do/home.dart';
 import 'package:what_to_do/custom/my_custom_scroll_behavior.dart';
@@ -17,7 +18,7 @@ void main() {
       brightness: Brightness.light,
     ),
     darkTheme: ThemeData(
-      colorSchemeSeed: Colors.amber,
+      colorSchemeSeed: Colors.blueGrey,
       useMaterial3: true,
       brightness: Brightness.dark,
     ),
@@ -25,17 +26,29 @@ void main() {
   ));
 
   openDatabase(
-    'wtd.db',
+    activityDatabase,
     onCreate: (db, version) {
       return db.execute(
-        'CREATE TABLE activities(id INTEGER PRIMARY KEY, activity TEXT, type TEXT, participants INTEGER, price REAL, link TEXT, key TEXT, accessibility REAL, isCompleted INTEGER)',
+        'CREATE TABLE $activityTable(id INTEGER PRIMARY KEY, activity TEXT, type TEXT, participants INTEGER, price REAL, link TEXT, key TEXT, accessibility REAL, isCompleted INTEGER)',
       );
     },
     version: 1,
   ).then((database) {
     Data.getActivities(database).then((value) {
       listActivity = value;
-      User.mainUser.acceptedTasks = listActivity.length;
+      User.mainUser.accepted = listActivity.length;
+    });
+  });
+
+  openDatabase(userDatabase, onCreate: (db, version) {
+    return db.execute(
+        "CREATE TABLE $userTable(name TEXT PRIMARY KEY, completed INTEGER, accepted INTEGER, education INTEGER, recreational INTEGER, social INTEGER, diy INTEGER, charity INTEGER, cooking INTEGER, relaxation INTEGER, music INTEGER, busywork INTEGER, image INTEGER)");
+  }).then((database) {
+    Data.getUsers(database).then((value) {
+      listUser = value;
+      if (listUser.isNotEmpty) {
+        User.mainUser = listUser[0];
+      }
     });
   });
 }

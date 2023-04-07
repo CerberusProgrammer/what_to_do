@@ -22,7 +22,7 @@ class _AboutState extends State<About> {
   @override
   Widget build(BuildContext context) {
     User user = User.mainUser;
-    valueNotifier = ValueNotifier(user.completedTasks.toDouble());
+    valueNotifier = ValueNotifier(user.completed.toDouble());
     return Scaffold(body: LayoutBuilder(
       builder: (builder, constraints) {
         return Padding(
@@ -52,15 +52,13 @@ class _AboutState extends State<About> {
                       elevation: 10,
                       child: Row(
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
+                          const Padding(
+                            padding: EdgeInsets.all(8.0),
                             child: CircleAvatar(
                               radius: 50,
-                              child: user.image
-                                  ? const Center()
-                                  : const Icon(
-                                      Icons.person,
-                                    ),
+                              child: Icon(
+                                Icons.person,
+                              ),
                             ),
                           ),
                           Column(
@@ -94,11 +92,13 @@ class _AboutState extends State<About> {
                                             .colorScheme
                                             .primary,
                                         size: 80,
-                                        maxValue: user.acceptedTasks.toDouble(),
+                                        maxValue: user.accepted.toDouble(),
                                         mergeMode: true,
                                         valueNotifier: valueNotifier,
                                         onGetText: (double value) {
-                                          return Text('${value.toInt() * 10}%');
+                                          print(value);
+                                          return Text(
+                                              '${((value.toInt() / user.accepted) * 100).toInt()}%');
                                         },
                                       ),
                                     ),
@@ -113,8 +113,8 @@ class _AboutState extends State<About> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Completed tasks: ${user.completedTasks}'),
-                                Text('Accepted tasks: ${user.acceptedTasks}'),
+                                Text('Completed tasks: ${user.completed}'),
+                                Text('Accepted tasks: ${user.accepted}'),
                               ],
                             ),
                           )

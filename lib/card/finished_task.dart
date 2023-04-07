@@ -1,11 +1,13 @@
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:what_to_do/data/constants.dart';
 import 'package:what_to_do/progress/progress.dart';
 
 import '../data/data.dart';
 import '../home.dart';
 import '../object/activity.dart';
+import '../object/user.dart';
 
 class FinishedTask extends StatelessWidget {
   final int index;
@@ -29,6 +31,9 @@ class FinishedTask extends StatelessWidget {
 
         HomeState.nextPage(1);
 
+        User.mainUser.completed += 1;
+        User.mainUser.saveType(activity.type);
+
         openDatabase(
           'wtd.db',
           onCreate: (db, version) {
@@ -38,7 +43,11 @@ class FinishedTask extends StatelessWidget {
           },
           version: 1,
         ).then((value) {
-          Data.delete(value, activity);
+          Data.delete(
+            value,
+            activity,
+            activityTable,
+          );
         });
 
         await Future.delayed(const Duration(seconds: 1));
