@@ -22,6 +22,18 @@ class Activity {
     "busywork": Color(0xFF607D8B),
   };
 
+  static const Map<int, Color> typeColorsInteger = {
+    0: Color(0xFF2196F3),
+    1: Color(0xFF4CAF50),
+    2: Color(0xFFFF5722),
+    3: Color(0xFF673AB7),
+    4: Color(0xFFE91E63),
+    5: Color(0xFF795548),
+    6: Color(0xFF009688),
+    7: Color(0xFFBA68C8),
+    8: Color(0xFF607D8B),
+  };
+
   static const Map<String, IconData> typeIcons = {
     "education": Icons.school,
     "recreational": Icons.beach_access,
