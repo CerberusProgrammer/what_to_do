@@ -19,6 +19,7 @@ dependencies:
   google_fonts: ^4.0.3
   animated_text_kit: ^4.2.2
   sqflite: ^2.2.6
+  random_avatar: ^0.0.8
 
 dev_dependencies:
   flutter_test:

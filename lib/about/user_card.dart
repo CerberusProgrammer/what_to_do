@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:random_avatar/random_avatar.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 
 import '../object/user.dart';
 
 class UserCard extends StatelessWidget {
   final ValueNotifier<double> valueNotifier;
+  final BoxConstraints constraints;
+
   const UserCard({
+    required this.constraints,
     required this.valueNotifier,
     super.key,
   });
@@ -18,28 +22,29 @@ class UserCard extends StatelessWidget {
       elevation: 10,
       child: Row(
         children: [
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: CircleAvatar(
-              radius: 50,
-              child: Icon(
-                Icons.person,
+          Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8),
+                child: Text(
+                  User.mainUser.name,
+                  style: const TextStyle(fontSize: 24),
+                ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: RandomAvatar(
+                  User.mainUser.name,
+                  height: 100,
+                  width: 100,
+                ),
+              ),
+            ],
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: User.mainUser.name == "default"
-                    ? const Center()
-                    : Text(
-                        User.mainUser.name,
-                        style: const TextStyle(fontSize: 24),
-                      ),
-              ),
               Padding(
                 padding: const EdgeInsets.all(8),
                 child: Column(
@@ -54,7 +59,7 @@ class UserCard extends StatelessWidget {
                         ],
                         fullProgressColor:
                             Theme.of(context).colorScheme.primary,
-                        size: 80,
+                        size: 90,
                         maxValue: User.mainUser.accepted.toDouble(),
                         mergeMode: true,
                         valueNotifier: valueNotifier,
@@ -69,17 +74,6 @@ class UserCard extends StatelessWidget {
               ),
             ],
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Completed: ${User.mainUser.completed}'),
-                Text('Accepted: ${User.mainUser.accepted}'),
-              ],
-            ),
-          )
         ],
       ),
     );

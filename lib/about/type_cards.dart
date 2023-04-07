@@ -43,10 +43,10 @@ class TypeCards extends StatelessWidget {
                 Center(
                   child: SimpleCircularProgressBar(
                     progressColors: [
-                      Theme.of(context).colorScheme.primary,
+                      Activity.typeColorsInteger[index]!.withOpacity(1),
                       Theme.of(context).colorScheme.onPrimary,
                     ],
-                    fullProgressColor: Theme.of(context).colorScheme.primary,
+                    fullProgressColor: Activity.typeColorsInteger[index],
                     size: 80,
                     maxValue: User.mainUser.accepted.toDouble(),
                     mergeMode: true,

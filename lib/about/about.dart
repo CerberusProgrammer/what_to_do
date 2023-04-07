@@ -52,6 +52,7 @@ class _AboutState extends State<About> {
                           const EdgeInsets.only(top: 10, left: 10, right: 10),
                       child: UserCard(
                         valueNotifier: valueNotifierTasks,
+                        constraints: constraints,
                       )),
                   Padding(
                       padding: const EdgeInsets.all(10),
