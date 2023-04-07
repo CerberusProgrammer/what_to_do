@@ -52,6 +52,7 @@ class ActivityCard extends StatelessWidget {
                   '${activity.activity}!',
                   style: const TextStyle(
                     fontSize: 28,
+                    color: Colors.white,
                     shadows: [
                       Shadow(
                         offset: Offset(1.0, 1),

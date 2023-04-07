@@ -15,10 +15,10 @@ void main() {
     theme: ThemeData(
       colorSchemeSeed: Colors.blueGrey,
       useMaterial3: true,
-      brightness: Brightness.dark,
+      brightness: Brightness.light,
     ),
     darkTheme: ThemeData(
-      colorSchemeSeed: Colors.blueGrey,
+      colorSchemeSeed: Colors.purple,
       useMaterial3: true,
       brightness: Brightness.dark,
     ),

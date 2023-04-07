@@ -23,15 +23,15 @@ class Activity {
   };
 
   static const Map<int, Color> typeColorsInteger = {
-    0: Color(0xFF2196F3),
-    1: Color(0xFF4CAF50),
-    2: Color(0xFFFF5722),
-    3: Color(0xFF673AB7),
-    4: Color(0xFFE91E63),
-    5: Color(0xFF795548),
-    6: Color(0xFF009688),
-    7: Color(0xFFBA68C8),
-    8: Color(0xFF607D8B),
+    0: Color.fromARGB(127, 33, 149, 243),
+    1: Color.fromARGB(127, 76, 175, 79),
+    2: Color.fromARGB(127, 255, 86, 34),
+    3: Color.fromARGB(127, 104, 58, 183),
+    4: Color.fromARGB(127, 233, 30, 98),
+    5: Color.fromARGB(127, 121, 85, 72),
+    6: Color.fromARGB(127, 0, 150, 135),
+    7: Color.fromARGB(127, 186, 104, 200),
+    8: Color.fromARGB(127, 96, 125, 139),
   };
 
   static const Map<String, IconData> typeIcons = {
