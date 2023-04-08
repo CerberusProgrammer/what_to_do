@@ -121,7 +121,7 @@ class _AboutState extends State<About> {
                               ],
                             ),
                             const Center(
-                              child: Padding(padding: EdgeInsets.all(35)),
+                              child: Padding(padding: EdgeInsets.all(25)),
                             ),
                             Flexible(
                               child: ListView(
