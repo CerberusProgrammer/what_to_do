@@ -36,8 +36,8 @@ class Data {
     database.update(
       'users',
       user.toMap(),
-      where: "name = ?",
-      whereArgs: [user.name],
+      where: "key = ?",
+      whereArgs: [user.key],
     );
   }
 
@@ -62,6 +62,7 @@ class Data {
     final maps = await database.query(userTable);
     final users = List.generate(maps.length, (i) {
       return User(
+        key: maps[i]['key'] as int,
         name: maps[i]['name'] as String,
         completed: maps[i]['completed'] as int,
         accepted: maps[i]['accepted'] as int,

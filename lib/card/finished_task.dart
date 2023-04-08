@@ -25,6 +25,7 @@ class FinishedTask extends StatelessWidget {
         controller.loading();
         await Future.delayed(const Duration(seconds: 1));
         controller.success();
+        await Future.delayed(const Duration(seconds: 1));
 
         Activity activity = listActivity[index];
         listActivity.removeAt(index);
@@ -46,7 +47,7 @@ class FinishedTask extends StatelessWidget {
           Data.updateUser(database, User.mainUser);
         });
 
-        await Future.delayed(const Duration(seconds: 1));
+        await Future.delayed(const Duration(milliseconds: 100));
         Navigator.pop(Progress.buildContext);
       },
       child: const Text('Finish task'),

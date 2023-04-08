@@ -40,15 +40,21 @@ void main() {
     });
   });
 
-  openDatabase(userDatabase, onCreate: (db, version) {
-    return db.execute(
-        "CREATE TABLE $userTable(name TEXT PRIMARY KEY, completed INTEGER, accepted INTEGER, education INTEGER, recreational INTEGER, social INTEGER, diy INTEGER, charity INTEGER, cooking INTEGER, relaxation INTEGER, music INTEGER, busywork INTEGER, image INTEGER)");
-  }, version: 1)
-      .then((database) {
+  openDatabase(
+    userDatabase,
+    onCreate: (db, version) {
+      return db.execute(
+          "CREATE TABLE $userTable(key INTEGER PRIMARY KEY, name TEXT, completed INTEGER, accepted INTEGER, education INTEGER, recreational INTEGER, social INTEGER, diy INTEGER, charity INTEGER, cooking INTEGER, relaxation INTEGER, music INTEGER, busywork INTEGER, image INTEGER)");
+    },
+    version: 1,
+  ).then((database) {
     Data.getUsers(database).then((value) {
       listUser = value;
+      print(listUser);
       if (listUser.isNotEmpty) {
         User.mainUser = listUser[0];
+      } else {
+        Data.insertUser(database, User(), 'users');
       }
     });
   });

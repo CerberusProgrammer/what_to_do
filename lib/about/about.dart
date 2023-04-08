@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:random_avatar/random_avatar.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
+import 'package:sqflite/sqflite.dart';
 import 'package:what_to_do/about/type_cards.dart';
-import 'package:what_to_do/about/user_card.dart';
+import 'package:what_to_do/data/constants.dart';
+import 'package:what_to_do/data/data.dart';
 
 import '../object/user.dart';
 
@@ -16,6 +18,7 @@ class About extends StatefulWidget {
 class _AboutState extends State<About> {
   late ValueNotifier<double> valueNotifierTasks;
   List<ValueNotifier<double>> listValuesNotifierTasks = [];
+  TextEditingController usernameController = TextEditingController();
 
   @override
   void initState() {
@@ -61,6 +64,54 @@ class _AboutState extends State<About> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: IconButton(
+                                      onPressed: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (builder) {
+                                              return AlertDialog(
+                                                title: const Text('Username'),
+                                                content: TextField(
+                                                  controller:
+                                                      usernameController,
+                                                  autofocus: true,
+                                                ),
+                                                actions: [
+                                                  TextButton(
+                                                      onPressed: () {
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child:
+                                                          const Text('Cancel')),
+                                                  FilledButton(
+                                                      onPressed: () {
+                                                        setState(() {
+                                                          User.mainUser.name =
+                                                              usernameController
+                                                                  .text;
+                                                        });
+
+                                                        openDatabase(
+                                                                userDatabase)
+                                                            .then((database) {
+                                                          Data.updateUser(
+                                                              database,
+                                                              User.mainUser);
+                                                        });
+
+                                                        Navigator.pop(context);
+                                                      },
+                                                      child:
+                                                          const Text('Change')),
+                                                ],
+                                              );
+                                            });
+                                      },
+                                      icon: const Icon(Icons.edit)),
+                                ),
+                                const Spacer(),
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: IconButton(

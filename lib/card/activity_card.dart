@@ -235,11 +235,7 @@ class ActivityCard extends StatelessWidget {
                             });
 
                             openDatabase(userDatabase).then((value) {
-                              Data.insertUser(
-                                value,
-                                User.mainUser,
-                                userTable,
-                              );
+                              Data.updateUser(value, User.mainUser);
                             });
 
                             await Future.delayed(const Duration(seconds: 3));

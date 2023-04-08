@@ -1,4 +1,5 @@
 class User {
+  int key;
   String name;
   int completed;
   int accepted;
@@ -15,6 +16,7 @@ class User {
   static User mainUser = User();
 
   User({
+    this.key = 1,
     this.name = "default",
     this.completed = 0,
     this.accepted = 0,
@@ -83,6 +85,6 @@ class User {
 
   @override
   String toString() {
-    return 'User{name: $name, completed: $completed, accepted: $accepted, education: $education, recreational: $recreational, social: $social, diy: $diy, charity: $charity, cooking: $cooking, relaxation: $relaxation, music: $music, busywork: $busywork}';
+    return 'User{key: $key, name: $name, completed: $completed, accepted: $accepted, education: $education, recreational: $recreational, social: $social, diy: $diy, charity: $charity, cooking: $cooking, relaxation: $relaxation, music: $music, busywork: $busywork}';
   }
 }

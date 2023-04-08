@@ -29,35 +29,41 @@ class TypeCards extends StatelessWidget {
         mainAxisSpacing: 0.0,
         shrinkWrap: true,
         children: List.generate(listValuesNotifierTasks.length, (index) {
-          return Card(
-            color: Activity.typeColorsInteger[index],
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: Icon(
-                    Activity.typeIconsInteger[index],
-                    color: const Color.fromARGB(41, 224, 224, 224),
-                    size: 50.0,
+          return InkWell(
+            customBorder: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            onTap: () {},
+            child: Card(
+              color: Activity.typeColorsInteger[index],
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Icon(
+                      Activity.typeIconsInteger[index],
+                      color: const Color.fromARGB(41, 224, 224, 224),
+                      size: 50.0,
+                    ),
                   ),
-                ),
-                Center(
-                  child: SimpleCircularProgressBar(
-                    progressColors: [
-                      Activity.typeColorsInteger[index]!.withOpacity(1),
-                      Theme.of(context).colorScheme.onPrimary,
-                    ],
-                    fullProgressColor: Activity.typeColorsInteger[index],
-                    size: 80,
-                    maxValue: User.mainUser.accepted.toDouble(),
-                    mergeMode: true,
-                    valueNotifier: listValuesNotifierTasks[index],
-                    onGetText: (double value) {
-                      return Text(
-                          '${((value.toInt() / User.mainUser.accepted) * 100).toInt()}%');
-                    },
-                  ),
-                )
-              ],
+                  Center(
+                    child: SimpleCircularProgressBar(
+                      progressColors: [
+                        Activity.typeColorsInteger[index]!.withOpacity(1),
+                        Theme.of(context).colorScheme.onPrimary,
+                      ],
+                      fullProgressColor: Activity.typeColorsInteger[index],
+                      size: 80,
+                      maxValue: User.mainUser.accepted.toDouble(),
+                      mergeMode: true,
+                      valueNotifier: listValuesNotifierTasks[index],
+                      onGetText: (double value) {
+                        return Text(
+                            '${((value.toInt() / User.mainUser.accepted) * 100).toInt()}%');
+                      },
+                    ),
+                  )
+                ],
+              ),
             ),
           );
         }));
