@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:random_avatar/random_avatar.dart';
+import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 import 'package:what_to_do/about/type_cards.dart';
 import 'package:what_to_do/about/user_card.dart';
 
@@ -39,46 +40,92 @@ class _AboutState extends State<About> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: LayoutBuilder(
-      builder: (builder, constraints) {
-        return Stack(alignment: Alignment.topCenter, children: [
-          Padding(
-            padding:
-                const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 40),
-            child: Card(
-              elevation: 10,
-              child: Expanded(
-                child: ListView(
-                  children: [
-                    Padding(
-                        padding:
-                            const EdgeInsets.only(top: 10, left: 10, right: 10),
-                        child: UserCard(
-                          valueNotifier: valueNotifierTasks,
-                          constraints: constraints,
-                        )),
-                    Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Expanded(
-                          child: SingleChildScrollView(
-                            child: TypeCards(
-                              listValuesNotifierTasks: listValuesNotifierTasks,
-                              constraints: constraints,
+    return Scaffold(
+      body: LayoutBuilder(
+        builder: (builder, constraints) {
+          return Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Stack(
+              alignment: Alignment.topCenter,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 8, right: 8, bottom: 8, top: 40),
+                  child: Card(
+                    elevation: 10,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 0),
+                      child: Expanded(
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.settings)),
+                                )
+                              ],
                             ),
-                          ),
-                        ))
+                            const Center(
+                              child: Padding(padding: EdgeInsets.all(35)),
+                            ),
+                            Flexible(
+                              child: ListView(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 10, right: 10, bottom: 10),
+                                    child: TypeCards(
+                                      listValuesNotifierTasks:
+                                          listValuesNotifierTasks,
+                                      constraints: constraints,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(top: 100),
+                    child: Text(
+                      User.mainUser.name,
+                      style: const TextStyle(fontSize: 48),
+                    )),
+                Stack(
+                  children: [
+                    Positioned.fill(
+                      child: RandomAvatar(
+                        User.mainUser.name,
+                        height: 100,
+                        width: 100,
+                      ),
+                    ),
+                    SimpleCircularProgressBar(
+                      progressColors: [
+                        Theme.of(context).colorScheme.primary,
+                      ],
+                      fullProgressColor: Theme.of(context).colorScheme.primary,
+                      size: 100,
+                      maxValue: User.mainUser.accepted.toDouble(),
+                      mergeMode: true,
+                      animationDuration: 3,
+                      valueNotifier: valueNotifierTasks,
+                    ),
                   ],
                 ),
-              ),
+              ],
             ),
-          ),
-          RandomAvatar(
-            User.mainUser.name,
-            height: 100,
-            width: 100,
-          ),
-        ]);
-      },
-    ));
+          );
+        },
+      ),
+    );
   }
 }
