@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:random_avatar/random_avatar.dart';
 import 'package:what_to_do/about/type_cards.dart';
 import 'package:what_to_do/about/user_card.dart';
 
@@ -40,35 +41,43 @@ class _AboutState extends State<About> {
   Widget build(BuildContext context) {
     return Scaffold(body: LayoutBuilder(
       builder: (builder, constraints) {
-        return Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Card(
-            elevation: 10,
-            child: Expanded(
-              child: ListView(
-                children: [
-                  Padding(
-                      padding:
-                          const EdgeInsets.only(top: 10, left: 10, right: 10),
-                      child: UserCard(
-                        valueNotifier: valueNotifierTasks,
-                        constraints: constraints,
-                      )),
-                  Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Expanded(
-                        child: SingleChildScrollView(
-                          child: TypeCards(
-                            listValuesNotifierTasks: listValuesNotifierTasks,
-                            constraints: constraints,
+        return Stack(alignment: Alignment.topCenter, children: [
+          Padding(
+            padding:
+                const EdgeInsets.only(left: 8, right: 8, bottom: 8, top: 40),
+            child: Card(
+              elevation: 10,
+              child: Expanded(
+                child: ListView(
+                  children: [
+                    Padding(
+                        padding:
+                            const EdgeInsets.only(top: 10, left: 10, right: 10),
+                        child: UserCard(
+                          valueNotifier: valueNotifierTasks,
+                          constraints: constraints,
+                        )),
+                    Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Expanded(
+                          child: SingleChildScrollView(
+                            child: TypeCards(
+                              listValuesNotifierTasks: listValuesNotifierTasks,
+                              constraints: constraints,
+                            ),
                           ),
-                        ),
-                      ))
-                ],
+                        ))
+                  ],
+                ),
               ),
             ),
           ),
-        );
+          RandomAvatar(
+            User.mainUser.name,
+            height: 100,
+            width: 100,
+          ),
+        ]);
       },
     ));
   }
