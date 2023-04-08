@@ -58,6 +58,18 @@ class Activity {
     8: Icons.work,
   };
 
+  static const Map<int, String> typeNamesInteger = {
+    0: "Education",
+    1: "Recreational",
+    2: "Social",
+    3: "Diy",
+    4: "Charity",
+    5: "Cooking",
+    6: "Relaxation",
+    7: "Music",
+    8: "Busywork",
+  };
+
   static const Map<String, String> typeDescriptions = {
     "education": "Activities related to learning or gaining knowledge.",
     "recreational": "Activities done for fun or leisure.",

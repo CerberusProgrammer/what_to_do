@@ -74,6 +74,8 @@ class _AboutState extends State<About> {
                                               return AlertDialog(
                                                 title: const Text('Username'),
                                                 content: TextField(
+                                                  textInputAction:
+                                                      TextInputAction.go,
                                                   controller:
                                                       usernameController,
                                                   autofocus: true,
@@ -121,7 +123,7 @@ class _AboutState extends State<About> {
                               ],
                             ),
                             const Center(
-                              child: Padding(padding: EdgeInsets.all(25)),
+                              child: Padding(padding: EdgeInsets.all(35)),
                             ),
                             Flexible(
                               child: ListView(
@@ -129,11 +131,13 @@ class _AboutState extends State<About> {
                                   Padding(
                                     padding: const EdgeInsets.only(
                                         left: 10, right: 10, bottom: 10),
-                                    child: TypeCards(
-                                      listValuesNotifierTasks:
-                                          listValuesNotifierTasks,
-                                      constraints: constraints,
-                                    ),
+                                    child: listValuesNotifierTasks.isNotEmpty
+                                        ? TypeCards(
+                                            listValuesNotifierTasks:
+                                                listValuesNotifierTasks,
+                                            constraints: constraints,
+                                          )
+                                        : const Center(),
                                   ),
                                 ],
                               ),

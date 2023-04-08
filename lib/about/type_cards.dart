@@ -33,7 +33,16 @@ class TypeCards extends StatelessWidget {
             customBorder: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(10),
             ),
-            onTap: () {},
+            onTap: () {
+              showDialog(
+                  context: context,
+                  builder: (builder) {
+                    return AlertDialog(
+                      title:
+                          Text(Activity.typeNamesInteger[index] ?? 'unknown'),
+                    );
+                  });
+            },
             child: Card(
               color: Activity.typeColorsInteger[index],
               child: Stack(

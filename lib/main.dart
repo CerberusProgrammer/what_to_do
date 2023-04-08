@@ -18,7 +18,7 @@ void main() {
       brightness: Brightness.light,
     ),
     darkTheme: ThemeData(
-      colorSchemeSeed: Colors.purple,
+      colorSchemeSeed: Colors.blueGrey,
       useMaterial3: true,
       brightness: Brightness.dark,
     ),
