@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:random_avatar/random_avatar.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:what_to_do/about/settings.dart';
 import 'package:what_to_do/about/type_cards.dart';
 import 'package:what_to_do/data/constants.dart';
 import 'package:what_to_do/data/data.dart';
@@ -117,7 +118,13 @@ class _AboutState extends State<About> {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: IconButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        Navigator.push(context,
+                                            MaterialPageRoute(
+                                                builder: (builder) {
+                                          return const Settings();
+                                        }));
+                                      },
                                       icon: const Icon(Icons.settings)),
                                 )
                               ],

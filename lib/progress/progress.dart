@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:social_share/social_share.dart';
 import 'package:what_to_do/card/activity_card.dart';
 
 import '../data/data.dart';
@@ -8,6 +11,25 @@ class Progress extends StatelessWidget {
   const Progress({super.key});
 
   static late BuildContext buildContext;
+  static ScreenshotController screenshotController = ScreenshotController();
+
+  static Future<void> shareScreenshot() async {
+    // Tomar el screenshot y guardarlo en el almacenamiento del dispositivo
+    final directory = await getApplicationDocumentsDirectory();
+    final imagePath = await screenshotController.captureAndSave(directory.path);
+
+    // Verificar si la imagen se guardó correctamente
+    if (imagePath != null) {
+      // Compartir el screenshot en la historia de Instagram
+      SocialShare.shareInstagramStory(
+        appId: 'com.example.what_to_do',
+        imagePath: imagePath,
+      );
+    } else {
+      // Mostrar un mensaje de error al usuario
+      print('Error al guardar el screenshot');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -63,13 +85,17 @@ class Progress extends StatelessWidget {
                                                         600
                                                     ? constraints.maxWidth / 2
                                                     : 300,
-                                                height:
-                                                    constraints.maxHeight / 1.5,
-                                                child: ActivityCard(
-                                                  activity: listActivity[index],
-                                                  challenge: false,
-                                                  page: 0,
-                                                  index: index,
+                                                height: 300,
+                                                child: Screenshot(
+                                                  controller:
+                                                      screenshotController,
+                                                  child: ActivityCard(
+                                                    activity:
+                                                        listActivity[index],
+                                                    challenge: false,
+                                                    page: 0,
+                                                    index: index,
+                                                  ),
                                                 ),
                                               ),
                                             );

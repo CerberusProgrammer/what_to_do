@@ -1,5 +1,6 @@
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:social_share/social_share.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:what_to_do/data/constants.dart';
 import 'package:what_to_do/progress/progress.dart';
@@ -46,6 +47,8 @@ class FinishedTask extends StatelessWidget {
         openDatabase(userDatabase).then((database) {
           Data.updateUser(database, User.mainUser);
         });
+
+        await Progress.shareScreenshot();
 
         await Future.delayed(const Duration(milliseconds: 100));
         Navigator.pop(Progress.buildContext);

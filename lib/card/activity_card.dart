@@ -1,12 +1,11 @@
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:what_to_do/data/constants.dart';
 import 'package:what_to_do/home.dart';
 import '../data/data.dart';
 import '../object/activity.dart';
-
-import 'package:url_launcher/url_launcher.dart';
 
 import '../object/user.dart';
 import 'finished_task.dart';
@@ -192,12 +191,20 @@ class ActivityCard extends StatelessWidget {
                         ),
                         activity.link.isNotEmpty
                             ? FilledButton(
-                                onPressed: () async {
-                                  var url = activity.link;
-                                  final uri = Uri.parse(url);
-                                  if (await canLaunchUrl(uri)) {
-                                    await launchUrl(uri);
-                                  }
+                                onPressed: () {
+                                  Clipboard.setData(
+                                      ClipboardData(text: activity.link));
+
+                                  final snackBar = SnackBar(
+                                    duration: const Duration(seconds: 5),
+                                    content: const Text(
+                                        'The URL was copied to your clipboard.'),
+                                    action: SnackBarAction(
+                                        label: 'Close', onPressed: () {}),
+                                  );
+
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(snackBar);
                                 },
                                 child: const Icon(Icons.language))
                             : const Center(),

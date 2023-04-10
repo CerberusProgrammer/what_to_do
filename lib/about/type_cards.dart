@@ -38,8 +38,11 @@ class TypeCards extends StatelessWidget {
                   context: context,
                   builder: (builder) {
                     return AlertDialog(
+                      backgroundColor: Activity.typeColorsInteger[index],
                       title:
                           Text(Activity.typeNamesInteger[index] ?? 'unknown'),
+                      content: Text(
+                          'You have a ${((listValuesNotifierTasks[index].value / User.mainUser.accepted) * 100).toInt()}% completed task with the category ${Activity.typeNamesInteger[index]}.'),
                     );
                   });
             },
@@ -50,8 +53,8 @@ class TypeCards extends StatelessWidget {
                   Positioned.fill(
                     child: Icon(
                       Activity.typeIconsInteger[index],
-                      color: const Color.fromARGB(41, 224, 224, 224),
-                      size: 50.0,
+                      color: const Color.fromARGB(255, 224, 224, 224),
+                      size: 45.0,
                     ),
                   ),
                   Center(
@@ -65,10 +68,6 @@ class TypeCards extends StatelessWidget {
                       maxValue: User.mainUser.accepted.toDouble(),
                       mergeMode: true,
                       valueNotifier: listValuesNotifierTasks[index],
-                      onGetText: (double value) {
-                        return Text(
-                            '${((value.toInt() / User.mainUser.accepted) * 100).toInt()}%');
-                      },
                     ),
                   )
                 ],
