@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:screenshot/screenshot.dart';
-import 'package:social_share/social_share.dart';
 import 'package:what_to_do/card/main_card.dart';
 import 'package:what_to_do/progress/progress.dart';
 import 'package:what_to_do/search/search.dart';

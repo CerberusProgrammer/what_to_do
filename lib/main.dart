@@ -7,18 +7,19 @@ import 'package:what_to_do/custom/my_custom_scroll_behavior.dart';
 
 import 'object/user.dart';
 
+Color color = Colors.blueGrey;
 void main() {
   runApp(MaterialApp(
     scrollBehavior: MyCustomScrollBehavior(),
     debugShowCheckedModeBanner: false,
     title: 'What to do?',
     theme: ThemeData(
-      colorSchemeSeed: Colors.blueGrey,
+      colorSchemeSeed: color,
       useMaterial3: true,
       brightness: Brightness.light,
     ),
     darkTheme: ThemeData(
-      colorSchemeSeed: Colors.blueGrey,
+      colorSchemeSeed: color,
       useMaterial3: true,
       brightness: Brightness.dark,
     ),

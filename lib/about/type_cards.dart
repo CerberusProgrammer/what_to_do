@@ -38,7 +38,8 @@ class TypeCards extends StatelessWidget {
                   context: context,
                   builder: (builder) {
                     return AlertDialog(
-                      backgroundColor: Activity.typeColorsInteger[index],
+                      backgroundColor:
+                          Activity.typeColorsInteger[index]?.withOpacity(1),
                       title:
                           Text(Activity.typeNamesInteger[index] ?? 'unknown'),
                       content: Text(

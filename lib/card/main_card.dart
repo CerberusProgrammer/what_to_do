@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:metaballs/metaballs.dart';
 import 'package:what_to_do/card/activity_card.dart';
+import 'package:what_to_do/main.dart';
 import '../object/activity.dart';
 import '../object/fetch.dart';
 
@@ -148,6 +149,13 @@ class _MainCard extends State<StatefulWidget> {
                                 },
                                 child: const Text('Another'))
                             : const Center(),
+                        FilledButton(
+                            onPressed: () {
+                              setState(() {
+                                color = Colors.amber;
+                              });
+                            },
+                            child: Text('indigo'))
                       ],
                     ),
                   ),
