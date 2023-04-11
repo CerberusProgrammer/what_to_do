@@ -24,7 +24,7 @@ class ShareCard extends StatelessWidget {
     required this.index,
   });
 
-  Future<void> shareScreenshotInstagram() async {
+  Future<void> shareScreenshotInstagram(BuildContext context) async {
     final directory = await getApplicationDocumentsDirectory();
     final imagePath = await screenshotController.captureAndSave(directory.path);
 
@@ -32,6 +32,10 @@ class ShareCard extends StatelessWidget {
       SocialShare.shareInstagramStory(
         appId: 'com.example.what_to_do',
         imagePath: imagePath,
+        backgroundTopColor:
+            '#${Activity.typeColors[activity.type]?.withOpacity(0.4).value.toRadixString(16)}',
+        backgroundBottomColor:
+            '#${Theme.of(context).colorScheme.onPrimary.withOpacity(0.4).value.toRadixString(16)}',
       );
     }
   }
@@ -118,7 +122,7 @@ class ShareCard extends StatelessWidget {
             controller: screenshotController,
             child: SizedBox(
               width: 350,
-              height: 350,
+              height: 430,
               child: ActivityCard(
                 true,
                 activity: activity,
@@ -128,26 +132,29 @@ class ShareCard extends StatelessWidget {
             ),
           ),
           const Divider(),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              bigIcon(const Color.fromRGBO(249, 144, 74, 100), () async {
-                await shareScreenshotInstagram();
-              }, FontAwesomeIcons.instagram, 50),
-              bigIcon(const Color.fromRGBO(29, 161, 242, 100), () async {
-                await shareToTwitter();
-              }, FontAwesomeIcons.twitter, 45),
-              bigIcon(const Color.fromARGB(156, 2, 147, 41), () async {
-                await shareToWhatsApp();
-              }, FontAwesomeIcons.whatsapp, 50),
-              bigIcon(const Color.fromARGB(255, 0, 136, 204), () async {
-                await shareToTelegram();
-              }, FontAwesomeIcons.telegram, 50),
-              bigIcon(const Color.fromARGB(156, 122, 124, 125), () async {
-                await shareOptions();
-              }, FontAwesomeIcons.shareFromSquare, 40),
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                bigIcon(const Color.fromRGBO(249, 144, 74, 100), () async {
+                  await shareScreenshotInstagram(context);
+                }, FontAwesomeIcons.instagram, 50),
+                bigIcon(const Color.fromRGBO(29, 161, 242, 100), () async {
+                  await shareToTwitter();
+                }, FontAwesomeIcons.twitter, 45),
+                bigIcon(const Color.fromARGB(156, 2, 147, 41), () async {
+                  await shareToWhatsApp();
+                }, FontAwesomeIcons.whatsapp, 50),
+                bigIcon(const Color.fromARGB(255, 0, 136, 204), () async {
+                  await shareToTelegram();
+                }, FontAwesomeIcons.telegram, 50),
+                bigIcon(const Color.fromARGB(156, 122, 124, 125), () async {
+                  await shareOptions();
+                }, FontAwesomeIcons.shareFromSquare, 40),
+              ],
+            ),
           ),
         ],
       ),

@@ -63,7 +63,7 @@ class Progress extends StatelessWidget {
                                                         600
                                                     ? constraints.maxWidth / 2
                                                     : 300,
-                                                height: 350,
+                                                height: 400,
                                                 child: ActivityCard(
                                                   false,
                                                   activity: listActivity[index],
