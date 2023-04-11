@@ -151,9 +151,7 @@ class _MainCard extends State<StatefulWidget> {
                             : const Center(),
                         FilledButton(
                             onPressed: () {
-                              setState(() {
-                                color = Colors.amber;
-                              });
+                              myAppKey.currentState?.change(1);
                             },
                             child: Text('indigo'))
                       ],

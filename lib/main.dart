@@ -7,24 +7,8 @@ import 'package:what_to_do/custom/my_custom_scroll_behavior.dart';
 
 import 'object/user.dart';
 
-Color color = Colors.blueGrey;
 void main() {
-  runApp(MaterialApp(
-    scrollBehavior: MyCustomScrollBehavior(),
-    debugShowCheckedModeBanner: false,
-    title: 'What to do?',
-    theme: ThemeData(
-      colorSchemeSeed: color,
-      useMaterial3: true,
-      brightness: Brightness.light,
-    ),
-    darkTheme: ThemeData(
-      colorSchemeSeed: color,
-      useMaterial3: true,
-      brightness: Brightness.dark,
-    ),
-    home: const Home(),
-  ));
+  runApp(const Main());
 
   openDatabase(
     activityDatabase,
@@ -73,4 +57,47 @@ void main() {
       }
     });
   });
+}
+
+final GlobalKey<MainState> myAppKey = GlobalKey<MainState>();
+
+class Main extends StatefulWidget {
+  const Main({super.key});
+
+  @override
+  State<StatefulWidget> createState() => MainState();
+}
+
+class MainState extends State<StatefulWidget> {
+  List<Color> colors = [
+    Colors.amber,
+    Colors.red,
+    Colors.teal,
+    Colors.blueGrey,
+    Colors.pink,
+    Colors.purple,
+  ];
+
+  int i = 5;
+
+  void change(int index) {
+    setState(() {
+      i = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        key: myAppKey,
+        scrollBehavior: MyCustomScrollBehavior(),
+        debugShowCheckedModeBanner: false,
+        title: 'What to do?',
+        theme: ThemeData(
+          colorSchemeSeed: colors[i],
+          useMaterial3: true,
+          brightness: Brightness.dark,
+        ),
+        home: const Home());
+  }
 }
