@@ -1,7 +1,7 @@
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:social_share/social_share.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:what_to_do/card/share_card.dart';
 import 'package:what_to_do/data/constants.dart';
 import 'package:what_to_do/progress/progress.dart';
 
@@ -48,10 +48,21 @@ class FinishedTask extends StatelessWidget {
           Data.updateUser(database, User.mainUser);
         });
 
-        await Progress.shareScreenshot();
-
         await Future.delayed(const Duration(milliseconds: 100));
         Navigator.pop(Progress.buildContext);
+
+        // ignore: use_build_context_synchronously
+        showDialog(
+            context: context,
+            builder: (builder) {
+              return ShareCard(
+                false,
+                activity: activity,
+                challenge: false,
+                index: index,
+                page: 0,
+              );
+            });
       },
       child: const Text('Finish task'),
     );

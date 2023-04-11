@@ -11,12 +11,14 @@ import '../object/user.dart';
 import 'finished_task.dart';
 
 class ActivityCard extends StatelessWidget {
+  final bool share;
   final Activity activity;
   final bool challenge;
   final int page;
   final int index;
 
-  const ActivityCard({
+  const ActivityCard(
+    this.share, {
     required this.activity,
     required this.challenge,
     required this.page,
@@ -44,7 +46,8 @@ class ActivityCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Center(
                 child: Text(
@@ -214,43 +217,56 @@ class ActivityCard extends StatelessWidget {
                 ),
               ),
               Center(
-                  child: challenge
-                      ? ActionSlider.standard(
-                          sliderBehavior: SliderBehavior.stretch,
-                          width: 250.0,
-                          backgroundColor: Theme.of(context)
-                              .colorScheme
-                              .primary
-                              .withAlpha(40),
-                          toggleColor: Theme.of(context).colorScheme.primary,
-                          action: (controller) async {
-                            controller.loading();
-                            await Future.delayed(const Duration(seconds: 1));
-                            controller.success();
+                child: share
+                    ? ActionSlider.standard(
+                        sliderBehavior: SliderBehavior.stretch,
+                        width: 250.0,
+                        backgroundColor:
+                            Theme.of(context).colorScheme.primary.withAlpha(40),
+                        toggleColor: Theme.of(context).colorScheme.primary,
+                        child: const Text('Slide!'),
+                        action: (controller) {
+                          controller.success();
+                        },
+                      )
+                    : challenge
+                        ? ActionSlider.standard(
+                            sliderBehavior: SliderBehavior.stretch,
+                            width: 250.0,
+                            backgroundColor: Theme.of(context)
+                                .colorScheme
+                                .primary
+                                .withAlpha(40),
+                            toggleColor: Theme.of(context).colorScheme.primary,
+                            action: (controller) async {
+                              controller.loading();
+                              await Future.delayed(const Duration(seconds: 1));
+                              controller.success();
 
-                            HomeState.nextPage(page);
+                              HomeState.nextPage(page);
 
-                            listActivity.add(activity);
-                            User.mainUser.accepted += 1;
+                              listActivity.add(activity);
+                              User.mainUser.accepted += 1;
 
-                            openDatabase(activityDatabase).then((value) {
-                              Data.insert(
-                                value,
-                                activity,
-                                activityTable,
-                              );
-                            });
+                              openDatabase(activityDatabase).then((value) {
+                                Data.insert(
+                                  value,
+                                  activity,
+                                  activityTable,
+                                );
+                              });
 
-                            openDatabase(userDatabase).then((value) {
-                              Data.updateUser(value, User.mainUser);
-                            });
+                              openDatabase(userDatabase).then((value) {
+                                Data.updateUser(value, User.mainUser);
+                              });
 
-                            await Future.delayed(const Duration(seconds: 3));
-                            controller.reset();
-                          },
-                          child: const Text('Take challenge'),
-                        )
-                      : FinishedTask(index)),
+                              await Future.delayed(const Duration(seconds: 3));
+                              controller.reset();
+                            },
+                            child: const Text('Take challenge'),
+                          )
+                        : FinishedTask(index),
+              ),
             ],
           ),
         ),
