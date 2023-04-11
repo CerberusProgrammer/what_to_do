@@ -1,14 +1,17 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:metaballs/metaballs.dart';
 import 'package:what_to_do/card/activity_card.dart';
-import 'package:what_to_do/main.dart';
+import 'package:what_to_do/style/themes.dart';
 import '../object/activity.dart';
 import '../object/fetch.dart';
 
 class MainCard extends StatefulWidget {
-  const MainCard({super.key});
+  const MainCard({
+    super.key,
+  });
 
   @override
   State<StatefulWidget> createState() => _MainCard();
@@ -26,6 +29,7 @@ class _MainCard extends State<StatefulWidget> {
   @override
   Widget build(BuildContext context) {
     sync();
+
     return LayoutBuilder(
       builder: (builder, constraints) {
         return Padding(
@@ -142,18 +146,10 @@ class _MainCard extends State<StatefulWidget> {
                             : const Center(),
                         showActivity
                             ? FilledButton(
-                                onPressed: () {
-                                  setState(() {
-                                    showActivity = true;
-                                  });
-                                },
-                                child: const Text('Another'))
+                                onPressed: () {},
+                                child: const Text('Another'),
+                              )
                             : const Center(),
-                        FilledButton(
-                            onPressed: () {
-                              myAppKey.currentState?.change(1);
-                            },
-                            child: Text('indigo'))
                       ],
                     ),
                   ),

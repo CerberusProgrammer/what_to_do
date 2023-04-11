@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:simple_circular_progress_bar/simple_circular_progress_bar.dart';
+import 'package:what_to_do/data/data.dart';
 import 'package:what_to_do/object/activity.dart';
 
 import '../object/user.dart';
@@ -34,18 +35,20 @@ class TypeCards extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
             ),
             onTap: () {
-              showDialog(
-                  context: context,
-                  builder: (builder) {
-                    return AlertDialog(
-                      backgroundColor:
-                          Activity.typeColorsInteger[index]?.withOpacity(1),
-                      title:
-                          Text(Activity.typeNamesInteger[index] ?? 'unknown'),
-                      content: Text(
-                          'You have a ${((listValuesNotifierTasks[index].value / User.mainUser.accepted) * 100).toInt()}% completed task with the category ${Activity.typeNamesInteger[index]}.'),
-                    );
-                  });
+              if (listActivity.isNotEmpty) {
+                showDialog(
+                    context: context,
+                    builder: (builder) {
+                      return AlertDialog(
+                        backgroundColor:
+                            Activity.typeColorsInteger[index]?.withOpacity(1),
+                        title:
+                            Text(Activity.typeNamesInteger[index] ?? 'unknown'),
+                        content: Text(
+                            'You have a ${((listValuesNotifierTasks[index].value / User.mainUser.accepted) * 100).toInt()}% completed task with the category ${Activity.typeNamesInteger[index]}.'),
+                      );
+                    });
+              }
             },
             child: Card(
               color: Activity.typeColorsInteger[index],

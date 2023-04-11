@@ -24,6 +24,14 @@ class Data {
     );
   }
 
+  static void deleteAllActivities(Database db) {
+    db.delete('activities').then((value) {});
+  }
+
+  static void deleteAllUser(Database db) {
+    db.delete('users').then((value) {});
+  }
+
   static void insertUser(Database database, User user, String table) {
     database.insert(
       table,

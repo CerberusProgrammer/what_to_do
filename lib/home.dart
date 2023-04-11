@@ -1,7 +1,9 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:what_to_do/card/main_card.dart';
 import 'package:what_to_do/progress/progress.dart';
 import 'package:what_to_do/search/search.dart';
+import 'package:what_to_do/style/themes.dart';
 
 import 'about/about.dart';
 
@@ -42,8 +44,8 @@ class HomeState extends State<Home> with SingleTickerProviderStateMixin {
       text: 'Progress',
     ),
     Tab(
-      icon: Icon(Icons.settings),
-      text: 'About',
+      icon: Icon(Icons.person),
+      text: 'Profile',
     )
   ];
 

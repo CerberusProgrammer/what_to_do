@@ -1,3 +1,4 @@
+import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:what_to_do/data/constants.dart';
@@ -59,8 +60,6 @@ void main() {
   });
 }
 
-final GlobalKey<MainState> myAppKey = GlobalKey<MainState>();
-
 class Main extends StatefulWidget {
   const Main({super.key});
 
@@ -69,35 +68,26 @@ class Main extends StatefulWidget {
 }
 
 class MainState extends State<StatefulWidget> {
-  List<Color> colors = [
-    Colors.amber,
-    Colors.red,
-    Colors.teal,
-    Colors.blueGrey,
-    Colors.pink,
-    Colors.purple,
-  ];
-
-  int i = 5;
-
-  void change(int index) {
-    setState(() {
-      i = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        key: myAppKey,
-        scrollBehavior: MyCustomScrollBehavior(),
-        debugShowCheckedModeBanner: false,
-        title: 'What to do?',
-        theme: ThemeData(
-          colorSchemeSeed: colors[i],
-          useMaterial3: true,
+    return AdaptiveTheme(
+      light: ThemeData(
           brightness: Brightness.dark,
-        ),
-        home: const Home());
+          colorSchemeSeed: Colors.blueGrey,
+          useMaterial3: true),
+      dark: ThemeData(
+          brightness: Brightness.dark,
+          colorSchemeSeed: Colors.blueGrey,
+          useMaterial3: true),
+      initial: AdaptiveThemeMode.dark,
+      builder: (theme, darkTheme) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        scrollBehavior: MyCustomScrollBehavior(),
+        title: 'Adaptive Theme Demo',
+        theme: theme,
+        darkTheme: darkTheme,
+        home: const Home(),
+      ),
+    );
   }
 }
