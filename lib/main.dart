@@ -94,12 +94,8 @@ class MainState extends State<StatefulWidget> {
         colorSchemeSeed: Themes.colors[Themes.defaultIndex],
         useMaterial3: true,
       ),
-      initial: savedThemeMode!,
-      builder: (
-        theme,
-        darkTheme,
-      ) =>
-          MaterialApp(
+      initial: savedThemeMode ?? AdaptiveThemeMode.dark,
+      builder: (theme, darkTheme) => MaterialApp(
         debugShowCheckedModeBanner: false,
         scrollBehavior: MyCustomScrollBehavior(),
         title: 'What To Do?',
