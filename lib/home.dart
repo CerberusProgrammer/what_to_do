@@ -1,9 +1,7 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:what_to_do/card/main_card.dart';
 import 'package:what_to_do/progress/progress.dart';
 import 'package:what_to_do/search/search.dart';
-import 'package:what_to_do/style/themes.dart';
 
 import 'about/about.dart';
 

@@ -1,15 +1,23 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:what_to_do/data/constants.dart';
 import 'package:what_to_do/data/data.dart';
 import 'package:what_to_do/home.dart';
 import 'package:what_to_do/custom/my_custom_scroll_behavior.dart';
+import 'package:what_to_do/style/themes.dart';
 
 import 'object/user.dart';
 
-void main() {
-  runApp(const Main());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final savedThemeMode = await AdaptiveTheme.getThemeMode();
+
+  final prefs = await SharedPreferences.getInstance();
+  Themes.defaultIndex = prefs.getInt('defaultIndex') ?? 0;
+
+  runApp(Main(savedThemeMode: savedThemeMode));
 
   openDatabase(
     activityDatabase,
@@ -61,29 +69,40 @@ void main() {
 }
 
 class Main extends StatefulWidget {
-  const Main({super.key});
+  final AdaptiveThemeMode? savedThemeMode;
+  const Main({super.key, required this.savedThemeMode});
 
   @override
-  State<StatefulWidget> createState() => MainState();
+  State<StatefulWidget> createState() => MainState(savedThemeMode);
 }
 
 class MainState extends State<StatefulWidget> {
+  final AdaptiveThemeMode? savedThemeMode;
+
+  MainState(this.savedThemeMode);
+
   @override
   Widget build(BuildContext context) {
     return AdaptiveTheme(
       light: ThemeData(
-          brightness: Brightness.dark,
-          colorSchemeSeed: Colors.blueGrey,
-          useMaterial3: true),
+        brightness: Brightness.dark,
+        colorSchemeSeed: Themes.colors[Themes.defaultIndex],
+        useMaterial3: true,
+      ),
       dark: ThemeData(
-          brightness: Brightness.dark,
-          colorSchemeSeed: Colors.blueGrey,
-          useMaterial3: true),
-      initial: AdaptiveThemeMode.dark,
-      builder: (theme, darkTheme) => MaterialApp(
+        brightness: Brightness.dark,
+        colorSchemeSeed: Themes.colors[Themes.defaultIndex],
+        useMaterial3: true,
+      ),
+      initial: savedThemeMode!,
+      builder: (
+        theme,
+        darkTheme,
+      ) =>
+          MaterialApp(
         debugShowCheckedModeBanner: false,
         scrollBehavior: MyCustomScrollBehavior(),
-        title: 'Adaptive Theme Demo',
+        title: 'What To Do?',
         theme: theme,
         darkTheme: darkTheme,
         home: const Home(),

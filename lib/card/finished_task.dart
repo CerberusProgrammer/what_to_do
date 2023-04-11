@@ -49,6 +49,7 @@ class FinishedTask extends StatelessWidget {
         });
 
         await Future.delayed(const Duration(milliseconds: 100));
+        // ignore: use_build_context_synchronously
         Navigator.pop(Progress.buildContext);
 
         // ignore: use_build_context_synchronously

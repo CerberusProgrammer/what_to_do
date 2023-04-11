@@ -35,6 +35,7 @@ class ShareCard extends StatelessWidget {
         backgroundTopColor:
             '#${Activity.typeColors[activity.type]?.withOpacity(0.4).value.toRadixString(16)}',
         backgroundBottomColor:
+            // ignore: use_build_context_synchronously
             '#${Theme.of(context).colorScheme.onPrimary.withOpacity(0.4).value.toRadixString(16)}',
       );
     }

@@ -1,10 +1,9 @@
-import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:metaballs/metaballs.dart';
 import 'package:what_to_do/card/activity_card.dart';
-import 'package:what_to_do/style/themes.dart';
+import 'package:what_to_do/data/constants.dart';
 import '../object/activity.dart';
 import '../object/fetch.dart';
 
@@ -29,7 +28,6 @@ class _MainCard extends State<StatefulWidget> {
   @override
   Widget build(BuildContext context) {
     sync();
-
     return LayoutBuilder(
       builder: (builder, constraints) {
         return Padding(
@@ -77,48 +75,13 @@ class _MainCard extends State<StatefulWidget> {
                                     child: AnimatedTextKit(
                                       pause: const Duration(milliseconds: 100),
                                       repeatForever: true,
-                                      animatedTexts: [
-                                        RotateAnimatedText(
-                                            "What's next on your to-do list?",
-                                            duration:
-                                                const Duration(seconds: 10)),
-                                        RotateAnimatedText(
-                                            "What adventures await you today?",
-                                            duration:
-                                                const Duration(seconds: 10)),
-                                        RotateAnimatedText(
-                                            "What exciting plans do you have for today?",
-                                            duration:
-                                                const Duration(seconds: 10)),
-                                        RotateAnimatedText(
-                                            "What will you discover today?",
-                                            duration:
-                                                const Duration(seconds: 10)),
-                                        RotateAnimatedText(
-                                            "What's on your agenda for today?",
-                                            duration:
-                                                const Duration(seconds: 10)),
-                                        RotateAnimatedText(
-                                            "What's your next big move?",
-                                            duration:
-                                                const Duration(seconds: 10)),
-                                        RotateAnimatedText(
-                                            "What's your next adventure?",
-                                            duration:
-                                                const Duration(seconds: 10)),
-                                        RotateAnimatedText(
-                                            "What new experience will you have today?",
-                                            duration:
-                                                const Duration(seconds: 10)),
-                                        RotateAnimatedText(
-                                            "What's your next challenge?",
-                                            duration:
-                                                const Duration(seconds: 10)),
-                                        RotateAnimatedText(
-                                            "What new things will you learn today?",
-                                            duration:
-                                                const Duration(seconds: 10)),
-                                      ],
+                                      animatedTexts: List.generate(
+                                          textPresentation.length, (index) {
+                                        return RotateAnimatedText(
+                                          textPresentation[index],
+                                          duration: const Duration(seconds: 10),
+                                        );
+                                      }),
                                     ),
                                   ),
                                 ),
@@ -146,7 +109,11 @@ class _MainCard extends State<StatefulWidget> {
                             : const Center(),
                         showActivity
                             ? FilledButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  setState(() {
+                                    showActivity = true;
+                                  });
+                                },
                                 child: const Text('Another'),
                               )
                             : const Center(),

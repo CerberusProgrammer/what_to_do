@@ -1,6 +1,7 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:metaballs/metaballs.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../style/themes.dart';
 
@@ -49,10 +50,13 @@ class _ChangeTheme extends State<StatefulWidget> {
                         side: const BorderSide(
                             color: Color.fromARGB(70, 35, 35, 35), width: 8),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         AdaptiveTheme.of(context).setTheme(
                           light: Themes.changeTheme(index),
+                          dark: Themes.changeTheme(index),
                         );
+                        final prefs = await SharedPreferences.getInstance();
+                        prefs.setInt('defaultIndex', index);
                       },
                       child: null,
                     ),
