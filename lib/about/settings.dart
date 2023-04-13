@@ -5,6 +5,7 @@ import 'package:what_to_do/about/change_theme.dart';
 
 import '../data/constants.dart';
 import '../data/data.dart';
+import '../style/themes.dart';
 
 class Settings extends StatelessWidget {
   const Settings({super.key});
@@ -79,7 +80,10 @@ class Settings extends StatelessWidget {
                                       child: const Text('Cancel')),
                                   FilledButton(
                                       onPressed: () {
-                                        AdaptiveTheme.of(context).reset();
+                                        AdaptiveTheme.of(context).setTheme(
+                                          light: Themes.changeTheme(15),
+                                          dark: Themes.changeTheme(15),
+                                        );
                                         Navigator.pop(context);
                                       },
                                       child: const Text('Reset'))

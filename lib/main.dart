@@ -6,6 +6,7 @@ import 'package:what_to_do/data/constants.dart';
 import 'package:what_to_do/data/data.dart';
 import 'package:what_to_do/home.dart';
 import 'package:what_to_do/custom/my_custom_scroll_behavior.dart';
+import 'package:what_to_do/presentation.dart';
 import 'package:what_to_do/style/themes.dart';
 
 import 'object/user.dart';
@@ -101,7 +102,7 @@ class MainState extends State<StatefulWidget> {
         title: 'What To Do?',
         theme: theme,
         darkTheme: darkTheme,
-        home: const Home(),
+        home: Presentation(),
       ),
     );
   }
