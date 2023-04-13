@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:what_to_do/data/constants.dart';
 import 'package:what_to_do/data/data.dart';
-import 'package:what_to_do/home.dart';
 import 'package:what_to_do/custom/my_custom_scroll_behavior.dart';
 import 'package:what_to_do/presentation.dart';
 import 'package:what_to_do/style/themes.dart';

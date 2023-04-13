@@ -2,6 +2,13 @@ const String activityDatabase = "wtd.db";
 const String userDatabase = "std.db";
 const String activityTable = "activities";
 const String userTable = "users";
+const List<String> textPresentationIntro = [
+  'a new chapter!',
+  'a fresh start!',
+  'a new beginning!',
+  'your next adventure!',
+  'a world of possibilities!',
+];
 const List<String> textPresentation = [
   "What's next?",
   "Ready for a challenge?",
