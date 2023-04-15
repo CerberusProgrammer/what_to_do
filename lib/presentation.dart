@@ -11,7 +11,7 @@ class Presentation extends StatelessWidget {
 
   final List<PageViewModel> pages = [
     PageViewModel(
-      title: "",
+      titleWidget: const SizedBox(),
       bodyWidget: Center(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -36,6 +36,11 @@ class Presentation extends StatelessWidget {
           ],
         ),
       ),
+      decoration: const PageDecoration(
+        bodyFlex: 0,
+        imageFlex: 4,
+      ),
+      footer: const SizedBox(),
     ),
     PageViewModel(
       title: '1',
@@ -55,14 +60,15 @@ class Presentation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IntroductionScreen(
-        pages: pages,
-        showNextButton: true,
-        showBackButton: true,
-        done: const Text("Done"),
-        onDone: () {
-          _onIntroEnd(context);
-        },
-        back: const Icon(Icons.arrow_back),
-        next: const Icon(Icons.arrow_forward));
+      pages: pages,
+      showNextButton: true,
+      showBackButton: true,
+      done: const Text("Done"),
+      onDone: () {
+        _onIntroEnd(context);
+      },
+      back: const Icon(Icons.arrow_back),
+      next: const Icon(Icons.arrow_forward),
+    );
   }
 }
