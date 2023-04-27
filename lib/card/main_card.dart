@@ -64,24 +64,28 @@ class _MainCard extends State<StatefulWidget> {
                       children: [
                         showActivity
                             ? const Center()
-                            : Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: SizedBox(
-                                  height: 400,
-                                  child: DefaultTextStyle(
-                                    style: GoogleFonts.anton(
-                                      fontSize: 56,
-                                    ),
-                                    child: AnimatedTextKit(
-                                      pause: const Duration(milliseconds: 100),
-                                      repeatForever: true,
-                                      animatedTexts: List.generate(
-                                          textPresentation.length, (index) {
-                                        return RotateAnimatedText(
-                                          textPresentation[index],
-                                          duration: const Duration(seconds: 10),
-                                        );
-                                      }),
+                            : Center(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: SizedBox(
+                                    height: 400,
+                                    child: DefaultTextStyle(
+                                      style: GoogleFonts.anton(
+                                        fontSize: 56,
+                                      ),
+                                      child: AnimatedTextKit(
+                                        pause:
+                                            const Duration(milliseconds: 100),
+                                        repeatForever: true,
+                                        animatedTexts: List.generate(
+                                            textPresentation.length, (index) {
+                                          return RotateAnimatedText(
+                                            textPresentation[index],
+                                            duration:
+                                                const Duration(seconds: 10),
+                                          );
+                                        }),
+                                      ),
                                     ),
                                   ),
                                 ),

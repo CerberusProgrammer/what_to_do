@@ -73,14 +73,10 @@ class Main extends StatefulWidget {
   const Main({super.key, required this.savedThemeMode});
 
   @override
-  State<StatefulWidget> createState() => MainState(savedThemeMode);
+  State<StatefulWidget> createState() => _Main();
 }
 
-class MainState extends State<StatefulWidget> {
-  final AdaptiveThemeMode? savedThemeMode;
-
-  MainState(this.savedThemeMode);
-
+class _Main extends State<Main> {
   @override
   Widget build(BuildContext context) {
     return AdaptiveTheme(
@@ -94,7 +90,7 @@ class MainState extends State<StatefulWidget> {
         colorSchemeSeed: Themes.colors[Themes.defaultIndex],
         useMaterial3: true,
       ),
-      initial: savedThemeMode ?? AdaptiveThemeMode.dark,
+      initial: widget.savedThemeMode ?? AdaptiveThemeMode.dark,
       builder: (theme, darkTheme) => MaterialApp(
         debugShowCheckedModeBanner: false,
         scrollBehavior: MyCustomScrollBehavior(),

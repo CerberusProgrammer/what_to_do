@@ -91,8 +91,8 @@ class ShareCard extends StatelessWidget {
 
   Widget bigIcon(Color color, Function() onTap, IconData icon, double size) {
     return SizedBox(
-      width: 80,
-      height: 80,
+      width: 40,
+      height: 40,
       child: Card(
         color: color,
         child: InkWell(
@@ -114,50 +114,52 @@ class ShareCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: const Text('Share your achievement to your friends!'),
-      content: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Screenshot(
-            controller: screenshotController,
-            child: SizedBox(
-              width: 350,
-              height: 430,
-              child: ActivityCard(
-                true,
-                activity: activity,
-                challenge: challenge,
-                page: page,
+    return SingleChildScrollView(
+      child: AlertDialog(
+        title: const Text('Share your achievement to your friends!'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Screenshot(
+              controller: screenshotController,
+              child: SizedBox(
+                width: 350,
+                height: 430,
+                child: ActivityCard(
+                  true,
+                  activity: activity,
+                  challenge: challenge,
+                  page: page,
+                ),
               ),
             ),
-          ),
-          const Divider(),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                bigIcon(const Color.fromRGBO(249, 144, 74, 100), () async {
-                  await shareScreenshotInstagram(context);
-                }, FontAwesomeIcons.instagram, 50),
-                bigIcon(const Color.fromRGBO(29, 161, 242, 100), () async {
-                  await shareToTwitter();
-                }, FontAwesomeIcons.twitter, 45),
-                bigIcon(const Color.fromARGB(156, 2, 147, 41), () async {
-                  await shareToWhatsApp();
-                }, FontAwesomeIcons.whatsapp, 50),
-                bigIcon(const Color.fromARGB(255, 0, 136, 204), () async {
-                  await shareToTelegram();
-                }, FontAwesomeIcons.telegram, 50),
-                bigIcon(const Color.fromARGB(156, 122, 124, 125), () async {
-                  await shareOptions();
-                }, FontAwesomeIcons.shareFromSquare, 40),
-              ],
+            const Divider(),
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  bigIcon(const Color.fromRGBO(249, 144, 74, 100), () async {
+                    await shareScreenshotInstagram(context);
+                  }, FontAwesomeIcons.instagram, 20),
+                  bigIcon(const Color.fromRGBO(29, 161, 242, 100), () async {
+                    await shareToTwitter();
+                  }, FontAwesomeIcons.twitter, 20),
+                  bigIcon(const Color.fromARGB(156, 2, 147, 41), () async {
+                    await shareToWhatsApp();
+                  }, FontAwesomeIcons.whatsapp, 20),
+                  bigIcon(const Color.fromARGB(255, 0, 136, 204), () async {
+                    await shareToTelegram();
+                  }, FontAwesomeIcons.telegram, 20),
+                  bigIcon(const Color.fromARGB(156, 122, 124, 125), () async {
+                    await shareOptions();
+                  }, FontAwesomeIcons.shareFromSquare, 20),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

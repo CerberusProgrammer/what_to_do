@@ -59,98 +59,92 @@ class _AboutState extends State<About> {
                     elevation: 10,
                     child: Padding(
                       padding: const EdgeInsets.only(top: 0),
-                      child: Expanded(
-                        child: Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: IconButton(
-                                      onPressed: () {
-                                        showDialog(
-                                            context: context,
-                                            builder: (builder) {
-                                              return AlertDialog(
-                                                title: const Text('Username'),
-                                                content: TextField(
-                                                  textInputAction:
-                                                      TextInputAction.go,
-                                                  controller:
-                                                      usernameController,
-                                                  autofocus: true,
-                                                ),
-                                                actions: [
-                                                  TextButton(
-                                                      onPressed: () {
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child:
-                                                          const Text('Cancel')),
-                                                  FilledButton(
-                                                      onPressed: () {
-                                                        setState(() {
-                                                          User.mainUser.name =
-                                                              usernameController
-                                                                  .text;
-                                                        });
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: IconButton(
+                                    onPressed: () {
+                                      showDialog(
+                                          context: context,
+                                          builder: (builder) {
+                                            return AlertDialog(
+                                              title: const Text('Username'),
+                                              content: TextField(
+                                                textInputAction:
+                                                    TextInputAction.go,
+                                                controller: usernameController,
+                                                autofocus: true,
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child:
+                                                        const Text('Cancel')),
+                                                FilledButton(
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        User.mainUser.name =
+                                                            usernameController
+                                                                .text;
+                                                      });
 
-                                                        openDatabase(
-                                                                userDatabase)
-                                                            .then((database) {
-                                                          Data.updateUser(
-                                                              database,
-                                                              User.mainUser);
-                                                        });
+                                                      openDatabase(userDatabase)
+                                                          .then((database) {
+                                                        Data.updateUser(
+                                                            database,
+                                                            User.mainUser);
+                                                      });
 
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child:
-                                                          const Text('Change')),
-                                                ],
-                                              );
-                                            });
-                                      },
-                                      icon: const Icon(Icons.edit)),
-                                ),
-                                const Spacer(),
-                                Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: IconButton(
-                                      onPressed: () {
-                                        Navigator.push(context,
-                                            MaterialPageRoute(
-                                                builder: (builder) {
-                                          return const Settings();
-                                        }));
-                                      },
-                                      icon: const Icon(Icons.settings)),
-                                )
-                              ],
-                            ),
-                            const Center(
-                              child: Padding(padding: EdgeInsets.all(35)),
-                            ),
-                            Flexible(
-                              child: ListView(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 10, right: 10, bottom: 10),
-                                    child: listValuesNotifierTasks.isNotEmpty
-                                        ? TypeCards(
-                                            listValuesNotifierTasks:
-                                                listValuesNotifierTasks,
-                                            constraints: constraints,
-                                          )
-                                        : const Center(),
-                                  ),
-                                ],
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child:
+                                                        const Text('Change')),
+                                              ],
+                                            );
+                                          });
+                                    },
+                                    icon: const Icon(Icons.edit)),
                               ),
-                            ),
-                          ],
-                        ),
+                              const Spacer(),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: IconButton(
+                                    onPressed: () {
+                                      Navigator.push(context,
+                                          MaterialPageRoute(builder: (builder) {
+                                        return const Settings();
+                                      }));
+                                    },
+                                    icon: const Icon(Icons.settings)),
+                              )
+                            ],
+                          ),
+                          const Center(
+                            child: Padding(padding: EdgeInsets.all(35)),
+                          ),
+                          ListView(
+                            shrinkWrap: true,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 10, right: 10, bottom: 10),
+                                child: listValuesNotifierTasks.isNotEmpty
+                                    ? TypeCards(
+                                        listValuesNotifierTasks:
+                                            listValuesNotifierTasks,
+                                        constraints: constraints,
+                                      )
+                                    : const Center(),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),
