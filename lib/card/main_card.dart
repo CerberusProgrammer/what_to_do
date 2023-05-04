@@ -83,6 +83,7 @@ class _MainCard extends State<StatefulWidget> {
                                             textPresentation[index],
                                             duration:
                                                 const Duration(seconds: 10),
+                                            textAlign: TextAlign.center,
                                           );
                                         }),
                                       ),

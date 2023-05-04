@@ -5,6 +5,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:what_to_do/data/constants.dart';
 import 'package:what_to_do/data/data.dart';
 import 'package:what_to_do/custom/my_custom_scroll_behavior.dart';
+import 'package:what_to_do/home.dart';
 import 'package:what_to_do/presentation.dart';
 import 'package:what_to_do/style/themes.dart';
 
@@ -16,8 +17,14 @@ void main() async {
 
   final prefs = await SharedPreferences.getInstance();
   Themes.defaultIndex = prefs.getInt('defaultIndex') ?? 0;
+  bool presentation = prefs.getBool('presentation') ?? true;
 
-  runApp(Main(savedThemeMode: savedThemeMode));
+  runApp(
+    Main(
+      savedThemeMode: savedThemeMode,
+      presentation: presentation,
+    ),
+  );
 
   openDatabase(
     activityDatabase,
@@ -70,7 +77,12 @@ void main() async {
 
 class Main extends StatefulWidget {
   final AdaptiveThemeMode? savedThemeMode;
-  const Main({super.key, required this.savedThemeMode});
+  final bool presentation;
+  const Main({
+    super.key,
+    required this.savedThemeMode,
+    required this.presentation,
+  });
 
   @override
   State<StatefulWidget> createState() => _Main();
@@ -97,7 +109,7 @@ class _Main extends State<Main> {
         title: 'What To Do?',
         theme: theme,
         darkTheme: darkTheme,
-        home: Presentation(),
+        home: widget.presentation ? Presentation() : const Home(),
       ),
     );
   }

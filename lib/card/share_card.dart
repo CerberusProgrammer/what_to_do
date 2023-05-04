@@ -158,6 +158,12 @@ class ShareCard extends StatelessWidget {
                 ],
               ),
             ),
+            FilledButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: const Text('Close'),
+            ),
           ],
         ),
       ),
