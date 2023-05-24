@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:what_to_do/card/share_card.dart';
 import 'package:what_to_do/data/constants.dart';
@@ -9,11 +12,45 @@ import '../data/data.dart';
 import '../home.dart';
 import '../object/activity.dart';
 import '../object/user.dart';
+import '../secret.dart';
 
-class FinishedTask extends StatelessWidget {
+class FinishedTask extends StatefulWidget {
   final int index;
 
   const FinishedTask(this.index, {super.key});
+
+  @override
+  State<FinishedTask> createState() => _FinishedTaskState();
+}
+
+class _FinishedTaskState extends State<FinishedTask> {
+  InterstitialAd? _interstitialAd;
+
+  @override
+  void initState() {
+    super.initState();
+    _createInterstitialAd();
+  }
+
+  void _createInterstitialAd() {
+    if (Platform.isAndroid) {
+      InterstitialAd.load(
+        adUnitId: admob_id,
+        request: const AdRequest(),
+        adLoadCallback: InterstitialAdLoadCallback(
+          onAdLoaded: (ad) => _interstitialAd = ad,
+          onAdFailedToLoad: (error) =>
+              print('Failed to load interstitial ad: $error'),
+        ),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _interstitialAd?.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,8 +65,8 @@ class FinishedTask extends StatelessWidget {
         controller.success();
         await Future.delayed(const Duration(seconds: 1));
 
-        Activity activity = listActivity[index];
-        listActivity.removeAt(index);
+        Activity activity = listActivity[widget.index];
+        listActivity.removeAt(widget.index);
 
         HomeState.nextPage(1);
 
@@ -60,10 +97,27 @@ class FinishedTask extends StatelessWidget {
                 false,
                 activity: activity,
                 challenge: false,
-                index: index,
+                index: widget.index,
                 page: 0,
               );
             });
+
+        if (_interstitialAd != null) {
+          _interstitialAd!.fullScreenContentCallback =
+              FullScreenContentCallback(
+            onAdShowedFullScreenContent: (ad) =>
+                print('$ad onAdShowedFullScreenContent.'),
+            onAdDismissedFullScreenContent: (ad) {
+              ad.dispose();
+              _createInterstitialAd();
+            },
+            onAdFailedToShowFullScreenContent: (ad, error) {
+              ad.dispose();
+              _createInterstitialAd();
+            },
+          );
+          _interstitialAd!.show();
+        }
       },
       child: const Text('Finish task'),
     );

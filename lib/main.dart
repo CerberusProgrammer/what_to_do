@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:what_to_do/data/constants.dart';
@@ -18,6 +21,10 @@ void main() async {
   final prefs = await SharedPreferences.getInstance();
   Themes.defaultIndex = prefs.getInt('defaultIndex') ?? 0;
   bool presentation = prefs.getBool('presentation') ?? true;
+
+  if (Platform.isAndroid) {
+    MobileAds.instance.initialize();
+  }
 
   runApp(
     Main(
@@ -109,7 +116,7 @@ class _Main extends State<Main> {
         title: 'What To Do?',
         theme: theme,
         darkTheme: darkTheme,
-        home: widget.presentation ? Presentation() : const Home(),
+        home: widget.presentation ? const Presentation() : const Home(),
       ),
     );
   }

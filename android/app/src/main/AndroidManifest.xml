@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.what_to_do">
+    package="com.sazarcode.what_to_do">
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.QUERY_ALL_PACKAGES" />
 
@@ -10,12 +10,17 @@
             <category android:name="android.intent.category.BROWSABLE" />
             <data android:scheme="https" />
         </intent>
-    </queries>
+    </queries> 
 
    <application
-        android:label="what_to_do"
+        android:label="What to Do?"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data
+        android:name="com.google.android.gms.ads.APPLICATION_ID"
+        android:value="ca-app-pub-3731629752574817~4458658484"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -47,6 +52,4 @@
                 android:resource="@xml/filepaths" />
         </provider>
     </application>
-
-    
 </manifest>

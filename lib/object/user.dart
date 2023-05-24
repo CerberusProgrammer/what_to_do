@@ -14,6 +14,7 @@ class User {
   int busywork;
 
   static User mainUser = User();
+  static int adtask = 0;
 
   User({
     this.key = 1,

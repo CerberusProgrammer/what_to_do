@@ -82,6 +82,7 @@ class _Search extends State<StatefulWidget> {
                           )
                         : const Center(),
                     ListTile(
+                      visualDensity: const VisualDensity(vertical: -4),
                       title: const Center(child: Text('Filter by Type')),
                       onTap: () {
                         setState(() {
@@ -152,6 +153,7 @@ class _Search extends State<StatefulWidget> {
                         : const Center(),
                     displayFilterType ? const Divider() : const Center(),
                     ListTile(
+                      visualDensity: const VisualDensity(vertical: -4),
                       title:
                           const Center(child: Text('Filter by Participants')),
                       onTap: () {
@@ -195,6 +197,7 @@ class _Search extends State<StatefulWidget> {
                         : const Center(),
                     const Divider(),
                     ListTile(
+                      visualDensity: const VisualDensity(vertical: -4),
                       title: const Center(child: Text('Filter by Price')),
                       onTap: () {
                         setState(() {
@@ -243,6 +246,7 @@ class _Search extends State<StatefulWidget> {
                         : const Center(),
                     displayFilterPrice ? const Divider() : const Center(),
                     ListTile(
+                      visualDensity: const VisualDensity(vertical: -4),
                       title:
                           const Center(child: Text('Filter by Accessibility')),
                       onTap: () {
@@ -260,7 +264,6 @@ class _Search extends State<StatefulWidget> {
                         });
                       },
                     ),
-                    const Divider(),
                     displayFilterAccessibility
                         ? Slider(
                             onChanged: (double value) {
@@ -282,9 +285,6 @@ class _Search extends State<StatefulWidget> {
                             label: '${sliderAccessibility.round()}',
                           )
                         : const Center(),
-                    displayFilterAccessibility
-                        ? const Divider()
-                        : const Center(),
                     SizedBox(
                         width: constraints.maxWidth,
                         height: 35,
@@ -294,6 +294,13 @@ class _Search extends State<StatefulWidget> {
                                   wait = activity;
                                   setState(() {
                                     displayCard = true;
+                                    displayFilterAccessibility = true;
+                                    displayFilterParticipants = false;
+                                    displayFilterPrice = false;
+                                    displayFilterType = false;
+                                    enableSearch = false;
+                                    displayFilterAccessibility = false;
+                                    enableSearch = false;
                                   });
                                 }
                               : null,
