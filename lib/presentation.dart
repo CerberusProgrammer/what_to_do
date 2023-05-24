@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:what_to_do/style/themes.dart';
 
 import 'data/constants.dart';
 import 'home.dart';
@@ -36,11 +37,10 @@ class Presentation extends StatelessWidget {
     PageViewModel(
       title: '',
       bodyWidget: AnimatedTextKit(
-        isRepeatingAnimation: false,
-        totalRepeatCount: 1,
+        pause: const Duration(seconds: 30),
         animatedTexts: List.generate(textPresentationIntro.length, (index) {
           return TypewriterAnimatedText(
-            "The ultimate task management platform to help you stay organized, focused, and motivated to do new things in your life!",
+            "The ultimate task management platform to help you stay organized, focused, and motivated to do new things in your life.",
             textStyle: GoogleFonts.anton(fontSize: 36),
             speed: const Duration(milliseconds: 100),
             textAlign: TextAlign.center,
@@ -51,8 +51,41 @@ class Presentation extends StatelessWidget {
         bodyAlignment: Alignment.center,
       ),
     ),
-    PageViewModel(title: 'Select a theme for you', bodyWidget: const Text('a')),
-    PageViewModel(title: 'Tell us your name', bodyWidget: const Text('a')),
+    PageViewModel(
+        title: 'Select a theme for you',
+        bodyWidget: Card(
+          child: GridView.count(
+            crossAxisCount: 8,
+            shrinkWrap: true,
+            children: List.generate(
+              Themes.colors.length,
+              (index) {
+                return Padding(
+                  padding: const EdgeInsets.all(2.0),
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      backgroundColor: Themes.colors[index],
+                      side: const BorderSide(
+                          color: Color.fromARGB(70, 35, 35, 35), width: 8),
+                    ),
+                    onPressed: () async {
+                      final prefs = await SharedPreferences.getInstance();
+                      prefs.setInt('defaultIndex', index);
+                    },
+                    child: null,
+                  ),
+                );
+              },
+            ),
+          ),
+        ),
+        decoration: const PageDecoration(
+          bodyAlignment: Alignment.center,
+        )),
+    PageViewModel(
+      title: 'Tell us your name',
+      bodyWidget: const Text('a'),
+    ),
   ];
 
   void _onIntroEnd(context) {
