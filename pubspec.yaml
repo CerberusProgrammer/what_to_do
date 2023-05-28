@@ -2,7 +2,7 @@ name: what_to_do
 description: What to do? is an app that suggests daily activities for users to be productive and do something different every day.
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.0+2
 
 environment:
   sdk: '>=2.19.3 <3.0.0'
